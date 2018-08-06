@@ -1,4 +1,4 @@
-<?php require_once('Desktop/autobot/vendor/autoload.php'); 
+<?php require_once('./Desktop/autobot/vendor/autoload.php'); 
 
 // Namespace
 use \LINE\LINEBot\HTTPClient\CurlHTTPClient; 
