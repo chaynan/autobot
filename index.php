@@ -18,7 +18,7 @@ if (!is_null($events['events'])) {
     foreach ($events['events'] as $event) {
          
         // Line API send a lot of event type, we interested in message only. 
-        if ($event['type'] == 'message' && $event['message']['type']== 'text') {
+        if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
         
         // Get replyToken 
         $replyToken = $event['replyToken']; 
