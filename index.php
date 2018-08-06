@@ -18,13 +18,13 @@ if (!is_null($events['events'])) {
     foreach ($events['events'] as $event) {
          
         // Line API send a lot of event type, we interested in message only. 
-        if ($event['type'] == 'message'&& $event['message']['type']== 'text') {
+        if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
         
         // Get replyToken 
         $replyToken = $event['replyToken']; 
 
         //Split message then keep it in database.
-        $appointments=explode(',', $event['message']['text']);
+        $appointments = explode(',', $event['message']['text']);
         
         if(count($appointments) == 2) {
 
@@ -45,6 +45,10 @@ if (!is_null($events['events'])) {
     }
         $httpClient = new CurlHTTPClient($channel_token); 
         $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
+
+
+
+
         $textMessageBuilder = new TextMessageBuilder($respMessage); 
         $response = $bot->replyMessage($replyToken, $textMessageBuilder); 
         } 
