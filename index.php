@@ -27,7 +27,7 @@ if (!is_null($events['events'])) {
             // Split message then keep it in database. 
             $appointments = explode(',', $event['message']['text']);
 
-            if(count($appointments) == 2) {
+           
 
                 $host = 'ec2-23-23-242-163.compute-1.amazonaws.com';
                 $dbname = 'dfitqn78lbn0av';
@@ -44,7 +44,7 @@ if (!is_null($events['events'])) {
                 $result = $statement->execute($params);
     
                 $respMessage = 'Your appointment has saved.';
-            }else{
+           
                 $respMessage = 'You can send appointment like this "12.00,House keeping." ';
             }
             
