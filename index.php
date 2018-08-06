@@ -4,8 +4,8 @@ use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use \LINE\LINEBot; 
 use \LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 $channel_token =
-'8hBnzp5BbOIfATUrjeFH4zp77UTfPKvfDe9ExRDnT8FqE2h0qAautaOhFkuXnY34Nthz2ZuAUdT7D3g2xUPcS4dvFtzF32s+C7zKtq+/hBQz/RqAguxX6zzf4xItuXBCmLI38QRnusP9gaId8xiLEQdB04t89/1O/w1cDnyilFU=';
-$channel_secret = '5b133c7e2f48c202daa02a237b186d5a';
+'JbkbMF0zqa9cDn91X8Vqhx0CMgD7haLJlO2V2bm8GpU4RZOZSvQHKw2stIMaFPN/Nthz2ZuAUdT7D3g2xUPcS4dvFtzF32s+C7zKtq+/hBR6VNIYXADNVgap6/7hMe46fUUW88Fm9JkRGbhdljSIvQdB04t89/1O/w1cDnyilFU=';
+$channel_secret = 'fce33b682da751c51e13169d81c9b7a8';
 // Get message from Line API 
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
