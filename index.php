@@ -17,24 +17,27 @@ if (!is_null($events['events'])) {
     foreach ($events['events'] as $event) {
          
         // Line API send a lot of event type, we interested in message only. 
-        if ($event['type'] == 'message') { 
-                // Get replyToken 
+        if ($event['type'] == 'message'&& $event['message']['type']='text') { 
+        // Get replyToken 
                 $replyToken = $event['replyToken']; 
-
-                switch($event['message']['type']) {
-                    case 'image': 
-                    $messageID = $event['message']['id'];
-                    $respMessage = 'Hello, your image ID is '. $messageID;
-                    break;
-                default:
-                $respMessage = 'Please send image only';
-                break;
-                }
-                $httpClient = new CurlHTTPClient($channel_token); 
-                $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret)); 
-                $textMessageBuilder = new TextMessageBuilder($respMessage); 
-                $response = $bot->replyMessage($replyToken, $textMessageBuilder); 
-            break; 
+        //Split message then keep it in database.
+        if(count($appointments==2))
+        $host =
+        $dbname = 
+        $pass = 
+        $connection =new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass);
+        $params=array(
+            'time' => $appointments[0], 
+            'content' => $appointments[1], 
+        );
+        $statement = $connection->prepare("INSERT INTO appointments (time, content) VALUES (:time,:content)");
+        $result = $statement->execute($params);
+        $respMessage = 'Your appointment has saved.'; }else{
+        $respMessage = 'You can send appointment like this "12.00,House keeping." '; }
+        $httpClient = new CurlHTTPClient($channel_token); 
+        $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
+        $textMessageBuilder = new TextMessageBuilder($respMessage); 
+        $response = $bot->replyMessage($replyToken, $textMessageBuilder); 
         } 
     } 
 } 
