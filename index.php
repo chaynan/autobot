@@ -13,11 +13,12 @@ $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 
 if (!is_null($events['events'])) { 
+
     // Loop through each event 
     foreach ($events['events'] as $event) {
          
         // Line API send a lot of event type, we interested in message only. 
-        if ($event['type'] == 'message'&& $event['message']['type']=='text') { 
+        if ($event['type'] == 'message'&& $event['message']['type']== 'text') {
         
         // Get replyToken 
         $replyToken = $event['replyToken']; 
