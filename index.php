@@ -22,7 +22,7 @@ if (!is_null($events['events'])) {
                 $replyToken = $event['replyToken']; 
         //Split message then keep it in database.
         $appointments=explode(',', $event['message']['text']);
-        if(count($appointments==2))
+        if(count($appointments==2){
         $host ='ec2-23-23-242-163.compute-1.amazonaws.com';
         $dbname ='dfitqn78lbn0av'; 
         $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
@@ -33,8 +33,10 @@ if (!is_null($events['events'])) {
         );
         $statement = $connection->prepare("INSERT INTO appointments (time, content) VALUES (:time,:content)");
         $result = $statement->execute($params);
-        $respMessage = 'Your appointment has saved.'; }else{
-        $respMessage = 'You can send appointment like this "12.00,House keeping." '; }
+        $respMessage = 'Your appointment has saved.'; 
+    }else{
+        $respMessage = 'You can send appointment like this "12.00,House keeping." '; 
+    }
         $httpClient = new CurlHTTPClient($channel_token); 
         $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
         $textMessageBuilder = new TextMessageBuilder($respMessage); 
