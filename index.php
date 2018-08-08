@@ -19,7 +19,7 @@ $host = 'localhost';
 $dbname = 'id6728688_chake_bot';
 $user = 'id6728688_chake_bot';
 $pass = 'chake_bot';
-$connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
+$connection = new PDO("phpMyAdminsql:host=$host;dbname=$dbname", $user, $pass); 
 
 // Get message from Line API
 $content = file_get_contents('php://input');
