@@ -20,7 +20,10 @@ $dbname = 'dfitqn78lbn0av';
 $user = 'gwuaimhybkhmyz';
 $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
-
+$result = $connection->query("SELECT * FROM appointments");
+if($result !== null) {
+    echo $result->rowCount();
+}
 // Get message from Line API
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
