@@ -15,10 +15,10 @@ $httpClient = new CurlHTTPClient($channel_token);
 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
 
 // Database connection 
-$host = 'ec2-23-23-242-163.compute-1.amazonaws.com';
-$dbname = 'dfitqn78lbn0av';
-$user = 'gwuaimhybkhmyz';
-$pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
+$host = 'localhost';
+$dbname = 'id6728688_chake_bot';
+$user = 'id6728688_chake_bot';
+$pass = 'chake_bot';
 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
 
 // Get message from Line API
