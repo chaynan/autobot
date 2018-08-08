@@ -23,7 +23,6 @@ $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass);
 $result = $connection->query("SELECT * FROM appointments");
 if($result !== null) {
     echo $result>rowCount();
-    echo $result[1];
 }
 /*
 // Get message from Line API
