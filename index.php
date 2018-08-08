@@ -24,6 +24,7 @@ $result = $connection->query("SELECT * FROM appointments");
 if($result !== null) {
     echo $result->rowCount();
 }
+/*
 // Get message from Line API
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
