@@ -9,5 +9,6 @@ $sql = sprintf("SELECT * FROM poll");
 $result = $connection->query($sql); 
 if($result !== null) { 
     echo $result->rowCount(); 
+    echo $result;
 }
 ?>
