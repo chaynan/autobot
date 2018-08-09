@@ -14,6 +14,7 @@ $channel_secret = 'fce33b682da751c51e13169d81c9b7a8';
 $httpClient = new CurlHTTPClient($channel_token);
 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
 
+
 // Database connection 
 $host = 'ec2-23-23-242-163.compute-1.amazonaws.com';
 $dbname = 'dfitqn78lbn0av';
