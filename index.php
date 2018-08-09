@@ -9,6 +9,6 @@ $sql = sprintf("SELECT * FROM poll WHERE id = 7");
 $result = $connection->query($sql); 
 if($result !== null) { 
     echo $result->rowCount(); 
-    echo $result;
+    echo $result['id'];
 }
 ?>
