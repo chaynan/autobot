@@ -57,7 +57,7 @@ $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass);
 	}
 }
 
-echo "OK";
+echo "1234";
 
 
 /*
