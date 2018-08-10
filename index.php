@@ -37,6 +37,14 @@ if (!is_null($events['events'])) {
                         $data_user = $event['message']['text'];
                         $respMessage = 'คำถามของคุณคือ '.$data_user;
                         
+                        $params = array(
+                                    'userID' => $event['source']['userId'],
+                                    'answer' => $event['message']['text'],
+                                );
+                            $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
+                            $statement->execute($params);   
+                            
+                            
                         // case '1':
                         //     // Insert
                         //     $params = array(
