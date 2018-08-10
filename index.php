@@ -46,21 +46,21 @@ if (!is_null($events['events'])) {
                     }
 
                     if($event['message']['image']){
-                        $fileID = $event['message']['id'];
-                        $response = $bot->getMessageContent($fileID);
-                        $fileName = md5(date('Y-m-d')).'.jpg';
-                        if ($response->isSucceeded()) {
-                            // Create file.
-                            $file = fopen($fileName, 'w');
-                            fwrite($file, $response->getRawBody());
-                            $params = array(
-                                'user_id' => $event['source']['userId'] ,
-                                'image' => $fileName,
-                                'slip_date' => date('Y-m-d'),
-                            );
-                            $statement = $connection->prepare('INSERT INTO slips (user_id, image, slip_date) VALUES (:user_id, :image, :slip_date)');
-                            $statement->execute($params);
-                        }
+                        // $fileID = $event['message']['id'];
+                        // $response = $bot->getMessageContent($fileID);
+                        // $fileName = md5(date('Y-m-d')).'.jpg';
+                        // if ($response->isSucceeded()) {
+                        //     // Create file.
+                        //     $file = fopen($fileName, 'w');
+                        //     fwrite($file, $response->getRawBody());
+                        //     $params = array(
+                        //         'user_id' => $event['source']['userId'] ,
+                        //         'image' => $fileName,
+                        //         'slip_date' => date('Y-m-d'),
+                        //     );
+                        //     $statement = $connection->prepare('INSERT INTO slips (user_id, image, slip_date) VALUES (:user_id, :image, :slip_date)');
+                        //     $statement->execute($params);
+                        // }
                     $respMessage = 'Your data has saved.';
                     }
     
