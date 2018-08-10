@@ -45,7 +45,7 @@ if (!is_null($events['events'])) {
                             $statement->execute($params);   
                     }
 
-                    if($event['message']['type']=="image"){
+                    switch($event['message']['type']){
                         // $fileID = $event['message']['id'];
                         // $response = $bot->getMessageContent($fileID);
                         // $fileName = md5(date('Y-m-d')).'.jpg';
@@ -61,7 +61,14 @@ if (!is_null($events['events'])) {
                         //     $statement = $connection->prepare('INSERT INTO slips (user_id, image, slip_date) VALUES (:user_id, :image, :slip_date)');
                         //     $statement->execute($params);
                         // }
-                    $respMessage = 'Your data has saved.';
+                        case 'image':
+                            $messageID = $event['message']['id']; 
+                            $respMessage = 'Hello, your image ID is '. $messageID; 
+                            $respMessage = 'Your data has saved.';
+                            break;
+                        default: 
+                            $respMessage = 'Please send image only'; 
+                            break;
                     }
     
                 $httpClient = new CurlHTTPClient($channel_token);
