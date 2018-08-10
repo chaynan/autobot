@@ -32,8 +32,21 @@ if (!is_null($events['events'])) {
                 $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
     
-                    if($event['message']['text']) {
+                    // if($event['message']['text']) {
 
+                    //     $data_user = $event['message']['text'];
+                    //     $respMessage = 'คำถามของคุณคือ '.$data_user;
+                        
+                    //     $params = array(
+                    //                 'userID' => $event['source']['userId'],
+                    //                 'answer' => $event['message']['text'],
+                    //             );
+                    //         $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
+                    //         $statement->execute($params);   
+                    // }
+
+                    switch($event['message']['type']){
+                        case 'text':
                         $data_user = $event['message']['text'];
                         $respMessage = 'คำถามของคุณคือ '.$data_user;
                         
@@ -43,9 +56,8 @@ if (!is_null($events['events'])) {
                                 );
                             $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
                             $statement->execute($params);   
-                    }
 
-                    switch($event['message']['type']){
+                        break;
                         // $fileID = $event['message']['id'];
                         // $response = $bot->getMessageContent($fileID);
                         // $fileName = md5(date('Y-m-d')).'.jpg';
