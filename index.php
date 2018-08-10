@@ -45,7 +45,7 @@ if (!is_null($events['events'])) {
                             $statement->execute($params);   
                     }
 
-                    if($event['message']['type']=='image'){
+                    if($event['message']['type']=="image"){
                         // $fileID = $event['message']['id'];
                         // $response = $bot->getMessageContent($fileID);
                         // $fileName = md5(date('Y-m-d')).'.jpg';
