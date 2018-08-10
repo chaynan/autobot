@@ -32,12 +32,12 @@ if (!is_null($events['events'])) {
                 $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
                 
-                $sql = sprintf("SELECT * FROM poll WHERE user_id='%s' ", $event['source']['userId']);
-                $result = $connection->query($sql);
+                // $sql = sprintf("SELECT * FROM poll WHERE user_id='%s' ", $event['source']['userId']);
+                // $result = $connection->query($sql);
 
-                error_log($sql);
+                // error_log($sql);
 
-                if($result == false || $result->rowCount() <=0) {
+                // if($result == false || $result->rowCount() <=0) {
     
                     switch($event['message']['text']) {
                         
@@ -138,9 +138,9 @@ if (!is_null($events['events'])) {
                             break;
                     }
     
-                } else {
-                    $respMessage = 'คุณได้ตอบโพลล์นี้แล้ว';
-                }
+                // } else {
+                //     $respMessage = 'คุณได้ตอบโพลล์นี้แล้ว';
+                // }
     
                 $httpClient = new CurlHTTPClient($channel_token);
                 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
