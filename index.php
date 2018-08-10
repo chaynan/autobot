@@ -78,8 +78,9 @@ if (!is_null($events['events'])) {
                             $respMessage = 'Hello, your image ID is '. $messageID; 
                             $respMessage = 'Your data has saved.';
                             break;
+
                         default: 
-                            $respMessage = 'Please send image only'; 
+                            $respMessage = 'This is Default'; 
                             break;
                     }
     
