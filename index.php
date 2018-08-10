@@ -52,7 +52,7 @@ if (!is_null($events['events'])) {
                             $statement->execute($params);
 
                             // Query
-                            $sql = sprintf("SELECT * FROM poll WHERE answer='1' AND  user_id='%s' ", $event['source']['userId']);
+                            $sql = sprintf("SELECT * FROM poll WHERE answer='1' ");
                             $result = $connection->query($sql);
                              
                             $amount = 1;
@@ -74,7 +74,7 @@ if (!is_null($events['events'])) {
                             $statement->execute($params);
 
                             // Query
-                            $sql = sprintf("SELECT * FROM poll WHERE answer='2' AND  user_id='%s' ", $event['source']['userId']);
+                            $sql = sprintf("SELECT * FROM poll WHERE answer='2' ");
                             $result = $connection->query($sql);
 
                             $amount = 1;
@@ -117,7 +117,7 @@ if (!is_null($events['events'])) {
                             $statement->execute($params);
 
                             // Query
-                            $sql = sprintf("SELECT * FROM poll WHERE answer='4' AND  user_id='%s' ", $event['source']['userId']);
+                            $sql = sprintf("SELECT * FROM poll WHERE answer='4' ");
                             $result = $connection->query($sql);
 
                             $amount = 1;
