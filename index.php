@@ -1,14 +1,18 @@
 <?php
  
 require_once('./vendor/autoload.php');
+
 use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use \LINE\LINEBot;
 use \LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+
 $channel_token = 'JbkbMF0zqa9cDn91X8Vqhx0CMgD7haLJlO2V2bm8GpU4RZOZSvQHKw2stIMaFPN/Nthz2ZuAUdT7D3g2xUPcS4dvFtzF32s+C7zKtq+/hBR6VNIYXADNVgap6/7hMe46fUUW88Fm9JkRGbhdljSIvQdB04t89/1O/w1cDnyilFU=';
 $channel_secret = 'fce33b682da751c51e13169d81c9b7a8';
+
 // Get message from Line API
 $content = file_get_contents('php://input');
 $events = json_decode($content, true);
+
 if (!is_null($events['events'])) {
 
 	// Loop through each event
@@ -153,19 +157,3 @@ if (!is_null($events['events'])) {
 }
 
 echo "OK";
-
-
-<?php 
-$host = 'ec2-23-23-242-163.compute-1.amazonaws.com';
-$dbname = 'dfitqn78lbn0av';
-$user = 'gwuaimhybkhmyz';
-$pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
-$connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
-
-$sql = sprintf("SELECT * FROM poll WHERE id = 7");
-$result = $connection->query($sql); 
-if($result !== null) { 
-    echo $result->rowCount(); 
-    echo $result['id'];
-}
-?>
