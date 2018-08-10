@@ -22,10 +22,10 @@ if (!is_null($events['events'])) {
 
             try {
                 // Check to see user already answer
-                $host = 'ec2-174-129-223-193.compute-1.amazonaws.com';
-                $dbname = 'd74bjtc28mea5m';
-                $user = 'eozuwfnzmgflmu';
-                $pass = '2340614a293db8e8a8c02753cd5932cdee45ab90bfcc19d0d306754984cbece1';
+                $host = 'ec2-23-23-242-163.compute-1.amazonaws.com';
+                $dbname = 'dfitqn78lbn0av';
+                $user = 'gwuaimhybkhmyz';
+                $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
                 
                 $sql = sprintf("SELECT * FROM poll WHERE user_id='%s' ", $event['source']['userId']);
