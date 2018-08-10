@@ -43,29 +43,25 @@ if (!is_null($events['events'])) {
                                 );
                             $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
                             $statement->execute($params);   
-                            
-                            
-                        // case '1':
-                        //     // Insert
-                        //     $params = array(
-                        //         'userID' => $event['source']['userId'],
-                        //         'answer' => '1',
-                        //     );
-                            
-                        //     $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
-                        //     $statement->execute($params);
+                    }
 
-                        //     // Query
-                        //     $sql = sprintf("SELECT * FROM poll WHERE answer='1' ");
-                        //     $result = $connection->query($sql);
-                             
-                        //     $amount = 1;
-                        //     if($result){
-                        //         $amount = $result->rowCount();
-                        //     }
-                        //     $respMessage = 'จำนวนคนตอบว่าเพื่อน = '.$amount;
-
-                        //     break;
+                    if($event['message']['image']){
+                        $fileID = $event['message']['id'];
+                        $response = $bot->getMessageContent($fileID);
+                        $fileName = md5(date('Y-m-d')).'.jpg';
+                        if ($response->isSucceeded()) {
+                            // Create file.
+                            $file = fopen($fileName, 'w');
+                            fwrite($file, $response->getRawBody());
+                            $params = array(
+                                'user_id' => $event['source']['userId'] ,
+                                'image' => $fileName,
+                                'slip_date' => date('Y-m-d'),
+                            );
+                            $statement = $connection->prepare('INSERT INTO slips (user_id, image, slip_date) VALUES (:user_id, :image, :slip_date)');
+                            $statement->execute($params);
+                        }
+                    $respMessage = 'Your data has saved.';
                     }
     
                 $httpClient = new CurlHTTPClient($channel_token);
@@ -74,6 +70,7 @@ if (!is_null($events['events'])) {
                 $textMessageBuilder = new TextMessageBuilder($respMessage);
                 $response = $bot->replyMessage($replyToken, $textMessageBuilder);
 
+            
             } catch(Exception $e) {
                 error_log($e->getMessage());
             }
