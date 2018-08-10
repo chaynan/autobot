@@ -96,7 +96,7 @@ if (!is_null($events['events'])) {
                             $statement->execute($params);
 
                             // Query
-                            $sql = sprintf("SELECT * FROM poll WHERE answer='3' AND  user_id='%s' ", $event['source']['userId']);
+                            $sql = sprintf("SELECT * FROM poll WHERE answer='3'");
                             $result = $connection->query($sql);
 
                             $amount = 1;
