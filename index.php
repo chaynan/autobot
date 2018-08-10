@@ -31,116 +31,34 @@ if (!is_null($events['events'])) {
                 $user = 'gwuaimhybkhmyz';
                 $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
-                
-                // $sql = sprintf("SELECT * FROM poll WHERE user_id='%s' ", $event['source']['userId']);
-                // $result = $connection->query($sql);
-
-                // error_log($sql);
-
-                // if($result == false || $result->rowCount() <=0) {
     
-                    switch($event['message']['text']) {
-                        
-                        case '1':
-                            // Insert
-                            $params = array(
-                                'userID' => $event['source']['userId'],
-                                'answer' => '1',
-                            );
-                            
-                            $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
-                            $statement->execute($params);
+                    if($event['message']['text']) {
 
-                            // Query
-                            $sql = sprintf("SELECT * FROM poll WHERE answer='1' ");
-                            $result = $connection->query($sql);
+                        $data_user = $event['message']['text'];
+                        $respMessage = 'คำถามของคุณคือ '.$data_user;
+                        
+                        // case '1':
+                        //     // Insert
+                        //     $params = array(
+                        //         'userID' => $event['source']['userId'],
+                        //         'answer' => '1',
+                        //     );
+                            
+                        //     $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
+                        //     $statement->execute($params);
+
+                        //     // Query
+                        //     $sql = sprintf("SELECT * FROM poll WHERE answer='1' ");
+                        //     $result = $connection->query($sql);
                              
-                            $amount = 1;
-                            if($result){
-                                $amount = $result->rowCount();
-                            }
-                            $respMessage = 'จำนวนคนตอบว่าเพื่อน = '.$amount;
+                        //     $amount = 1;
+                        //     if($result){
+                        //         $amount = $result->rowCount();
+                        //     }
+                        //     $respMessage = 'จำนวนคนตอบว่าเพื่อน = '.$amount;
 
-                            break;
-                        
-                        case '2':
-                            // Insert
-                            $params = array(
-                                'userID' => $event['source']['userId'],
-                                'answer' => '2',
-                            );
-                            
-                            $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
-                            $statement->execute($params);
-
-                            // Query
-                            $sql = sprintf("SELECT * FROM poll WHERE answer='2' ");
-                            $result = $connection->query($sql);
-
-                            $amount = 1;
-                            if($result){
-                                $amount = $result->rowCount();
-                            }
-                            $respMessage = 'จำนวนคนตอบว่าแฟน = '.$amount;
-
-                            break;
-                        
-                        case '3':
-                            // Insert
-                            $params = array(
-                                'userID' => $event['source']['userId'],
-                                'answer' => '3',
-                            );
-                            
-                            $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
-                            $statement->execute($params);
-
-                            // Query
-                            $sql = sprintf("SELECT * FROM poll WHERE answer='3'");
-                            $result = $connection->query($sql);
-
-                            $amount = 1;
-                            if($result){
-                                $amount = $result->rowCount();
-                            }
-                            $respMessage = 'จำนวนคนตอบว่าพ่อแม่ = '.$amount;
-    
-                            break;
-                        case '4':
-                            // Insert
-                            $params = array(
-                                'userID' => $event['source']['userId'],
-                                'answer' => '4',
-                            );
-                            
-                            $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
-                            $statement->execute($params);
-
-                            // Query
-                            $sql = sprintf("SELECT * FROM poll WHERE answer='4' ");
-                            $result = $connection->query($sql);
-
-                            $amount = 1;
-                            if($result){
-                                $amount = $result->rowCount();
-                            }
-                            $respMessage = 'จำนวนคนตอบว่าบุคคลอื่นๆ = '.$amount;
-
-                            break;
-                        default:
-                            $respMessage = "
-                                บุคคลที่โทรหาบ่อยที่สุด คือ? \n\r
-                                กด 1 เพื่อน \n\r
-                                กด 2 แฟน \n\r
-                                กด 3 พ่อแม่ \n\r
-                                กด 4 บุคคลอื่นๆ \n\r
-                            ";
-                            break;
+                        //     break;
                     }
-    
-                // } else {
-                //     $respMessage = 'คุณได้ตอบโพลล์นี้แล้ว';
-                // }
     
                 $httpClient = new CurlHTTPClient($channel_token);
                 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
