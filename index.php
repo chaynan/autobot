@@ -39,9 +39,9 @@ if (!is_null($events['events'])) {
                         
                         $params = array(
                                     'userID' => $event['source']['userId'],
-                                    'answer' => $event['message']['text'],
+                                    'time' => $event['message']['text'],
                                 );
-                            $statement = $connection->prepare('INSERT INTO appointments ( time , answer ) VALUES ( :userID, :answer )');
+                            $statement = $connection->prepare('INSERT INTO appointments ( user_id, time ) VALUES ( :userID, :time )');
                             $statement->execute($params);   
 
                         break;
