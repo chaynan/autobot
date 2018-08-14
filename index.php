@@ -24,7 +24,7 @@ if (!is_null($events['events'])) {
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 
             // Get replyToken
-            $respMessage = '';
+         
             $replyToken = $event['replyToken'];
 
             try {
@@ -34,7 +34,13 @@ if (!is_null($events['events'])) {
                 $user = 'gwuaimhybkhmyz';
                 $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
-    
+                if ( sizeof($request_array['events']) > 0 )
+                {
+                
+                 foreach ($request_array['events'] as $event)
+                 {
+                  $reply_message = '';
+                  $reply_token = $event['replyToken'];
                 if ( $event['type'] == 'message' ) 
                 {
                  if( $event['message']['type'] == 'text' )
@@ -63,6 +69,8 @@ if (!is_null($events['events'])) {
                  echo "Result: ".$send_result."\r\n";
                 }
                }
+            }
+        }
             
                 
                     // switch($event['message']['type']){
