@@ -41,7 +41,7 @@ if (!is_null($events['events'])) {
                                     'userID' => $event['source']['userId'],
                                     'answer' => $event['message']['text'],
                                 );
-                            $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
+                            $statement = $connection->prepare('INSERT INTO appointments ( time , answer ) VALUES ( :userID, :answer )');
                             $statement->execute($params);   
 
                         break;
