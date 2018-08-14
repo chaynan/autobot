@@ -46,8 +46,7 @@ if (!is_null($events['events'])) {
                             $result = $statement->execute($params);
                 
                             $respMessage = 'บันทึกแล้วจ้า.';
-                        }
-                    if(count($appointments) == 3){
+                        }else if(count($appointments) == 3){
                         $params = array(
                             'user_name' => $appointments[0],
                             'answer' => $appointments[1],
@@ -59,7 +58,7 @@ if (!is_null($events['events'])) {
                 
                             $respMessage = 'บันทึกแล้วจ้า.';
                         }else{
-                            $respMessage = 'กรุณากรอกข้อมูลตามรูปแบบ เช่น สตท.1,ปัญหา,ว/ด/ป. ';
+                            $respMessage = 'กรุณากรอกข้อมูลตามรูปแบบ เช่น สตท.1,ปัญหา หรือ สตท.1,ปัญหา,ว/ด/ป. ';
                         }
                         // $data_user = $event['message']['text'];
                         // $respMessage = $data_user;
