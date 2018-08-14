@@ -53,18 +53,21 @@ if (!is_null($events['events'])) {
                             $response = $bot->getMessageContent($fileID);
                             $fileName = md5(date('Y-m-d')).'.jpg';
                             if ($response->isSucceeded()) {
+                                $respMessage = "Complete";
                                 // Create file.
-                                $file = fopen($fileName, 'w');
-                                fwrite($file, $response->getRawBody());
-                                    $params = array(
-                                        'user_id' => $event['source']['userId'] ,
-                                        'image_test' => $fileName,
-                                        'content' => "test",
-                                    );
-                                    $statement = $connection->prepare('INSERT INTO appointments (user_id, image_test, content) VALUES (:user_id, :image_test, :content)');
-                                    $statement->execute($params);
+                                // $file = fopen($fileName, 'w');
+                                // fwrite($file, $response->getRawBody());
+                                //     $params = array(
+                                //         'user_id' => $event['source']['userId'] ,
+                                //         'image_test' => $fileName,
+                                //         'content' => "test",
+                                //     );
+                                //     $statement = $connection->prepare('INSERT INTO appointments (user_id, image_test, content) VALUES (:user_id, :image_test, :content)');
+                                //     $statement->execute($params);
 
-                                    $respMessage = 'Complete';
+                                //     $respMessage = 'Complete';
+                                }else{
+                                    $respMessage = "Not Complete";
                                 }
                             
         
