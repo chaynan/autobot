@@ -42,13 +42,24 @@ if (!is_null($events['events'])) {
                                 'answer' => $appointments[1],
                                 'user_id'=>$event['source']['userId'],
                             );
-                
                             $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ) VALUES (:user_name,:answer, :user_id)");
                             $result = $statement->execute($params);
                 
                             $respMessage = 'บันทึกแล้วจ้า.';
+                        }
+                    if(count($appointments) == 3){
+                        $params = array(
+                            'user_name' => $appointments[0],
+                            'answer' => $appointments[1],
+                            'time_id'=>$appointments[2],
+                            'user_id'=>$event['source']['userId'],
+                        );
+                            $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ,time_id ) VALUES (:user_name,:answer, :user_id,time_id)");
+                            $result = $statement->execute($params);
+                
+                            $respMessage = 'บันทึกแล้วจ้า.';
                         }else{
-                            $respMessage = 'กรุณากรอกข้อมูลตามรูปแบบ เช่น สตท.1,ปัญหา." ';
+                            $respMessage = 'กรุณากรอกข้อมูลตามรูปแบบ เช่น สตท.1,ปัญหา,ว/ด/ป. ';
                         }
                         // $data_user = $event['message']['text'];
                         // $respMessage = $data_user;
