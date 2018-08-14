@@ -1,5 +1,7 @@
 <?php
- 
+ $API_URL = 'https://api.line.me/v2/bot/message/reply';
+ $ACCESS_TOKEN = 'JbkbMF0zqa9cDn91X8Vqhx0CMgD7haLJlO2V2bm8GpU4RZOZSvQHKw2stIMaFPN/Nthz2ZuAUdT7D3g2xUPcS4dvFtzF32s+C7zKtq+/hBR6VNIYXADNVgap6/7hMe46fUUW88Fm9JkRGbhdljSIvQdB04t89/1O/w1cDnyilFU='; // Access Token ค่าที่เราสร้างขึ้น
+ $POST_HEADER = array('Content-Type: application/json', 'Authorization: Bearer ' . $ACCESS_TOKEN);
 require_once('./vendor/autoload.php');
 
 use \LINE\LINEBot\HTTPClient\CurlHTTPClient;
