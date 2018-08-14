@@ -46,8 +46,22 @@ if (!is_null($events['events'])) {
                 }
                 else {
                     $respMessage = 'ระบบได้รับ Event '.ucfirst($event['type']).' ของคุณแล้ว';
-                }
+                
                  
+                if( strlen($respMessage) > 0 )
+                {
+                 //$reply_message = iconv("tis-620","utf-8",$reply_message);
+                 $data = [
+                  'replyToken' => $reply_token,
+                  'messages' => [['type' => 'text', 'text' => $respMessage]]
+                 ];
+                 $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
+              
+                 $send_result = send_reply_message($API_URL, $POST_HEADER, $post_body);
+                 echo "Result: ".$send_result."\r\n";
+                }
+               }
+            
                 
                     // switch($event['message']['type']){
                     //     case 'text':
