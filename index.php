@@ -35,7 +35,7 @@ if (!is_null($events['events'])) {
                     switch($event['message']['type']){
                         case 'text':
                         $data_user = $event['message']['text'];
-                        $respMessage = 'คำถามของคุณคือ '.$data_user;
+                        $respMessage = $data_user;
                         
                         $params = array(
                                     'userID' => $event['source']['userId'],
@@ -48,9 +48,9 @@ if (!is_null($events['events'])) {
                         
                         case 'image':
                             $messageID =$event['message']['id'];
-                            $respMessage = 'Hello, your image ID is '.$messageID; 
+                            $respMessage = $messageID; 
                             $params = array(
-                                'userID' => $event['source']['userId'],
+                                'userID' => $event['source']['userid'],
                                 'test' =>  $event['message']['id'],
                             );
                             
