@@ -32,32 +32,48 @@ if (!is_null($events['events'])) {
                 $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
     
-                    switch($event['message']['type']){
-                        case 'text':
-                        $data_user = $event['message']['text'];
-                        $respMessage = $data_user;
+                if ( $event['type'] == 'message' ) 
+                {
+                 if( $event['message']['type'] == 'text' )
+                 {
+                  $text = $event['message']['text'];
+                  $reply_message = 'ระบบได้รับข้อความ ('.$text.') ของคุณแล้ว';
+                 }
+                 else
+                  $reply_message = 'ระบบได้รับ '.ucfirst($event['message']['type']).' ของคุณแล้ว';
+                
+                }
+                else {
+                    $reply_message = 'ระบบได้รับ Event '.ucfirst($event['type']).' ของคุณแล้ว';
+                }
+                 
+                
+                    // switch($event['message']['type']){
+                    //     case 'text':
+                    //     $data_user = $event['message']['text'];
+                    //     $respMessage = $data_user;
                         
-                        $params = array(
-                                    'userID' => $event['source']['userId'],
-                                    'content' => $event['message']['text'],
-                                );
-                            $statement = $connection->prepare('INSERT INTO appointments ( user_id,content ) VALUES ( :userID, :content )');
-                            $statement->execute($params);   
+                    //     $params = array(
+                    //                 'userID' => $event['source']['userId'],
+                    //                 'content' => $event['message']['text'],
+                    //             );
+                    //         $statement = $connection->prepare('INSERT INTO appointments ( user_id,content ) VALUES ( :userID, :content )');
+                    //         $statement->execute($params);   
 
-                        break;
+                    //     break;
                         
-                        case 'image':
-                            $messageID =$event['message']['id'];
-                            $respMessage = $messageID; 
+                    //     case 'image':
+                    //         $messageID =$event['message']['id'];
+                    //         $respMessage = $messageID; 
                    
     
-                        break;
+                    //     break;
 
-                        default: 
-                            $respMessage = 'This is Default'; 
+                    //     default: 
+                    //         $respMessage = 'This is Default'; 
 
-                            break;
-                    }
+                    //         break;
+                    // }
     
                 $httpClient = new CurlHTTPClient($channel_token);
                 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
