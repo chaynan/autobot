@@ -46,9 +46,9 @@ if (!is_null($events['events'])) {
                             $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ) VALUES (:user_name,:answer, :user_id)");
                             $result = $statement->execute($params);
                 
-                            $respMessage = 'Your appointment has saved.';
+                            $respMessage = 'บันทึกแล้วจ้า.';
                         }else{
-                            $respMessage = 'You can send appointment like this "12.00,House keeping." ';
+                            $respMessage = 'กรุณากรอกข้อมูลตามรูปแบบ เช่น สตท.1,ปัญหา." ';
                         }
                         // $data_user = $event['message']['text'];
                         // $respMessage = $data_user;
