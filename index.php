@@ -32,8 +32,8 @@ if (!is_null($events['events'])) {
                 $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
     
-                    switch($event['message']['type']){
-                        case 'text':
+                   if($event['message']['type']){
+                      
                         $data_user = $event['message']['text'];
                         $respMessage = $data_user;
                         
@@ -44,21 +44,6 @@ if (!is_null($events['events'])) {
                             $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
                             $statement->execute($params);   
 
-                        break;
-                        
-                        case 'image':
-                            $messageID =$event['message']['id'];
-                            $respMessage = $messageID; 
-                   
-    
-                        break;
-
-                        default: 
-                            $respMessage = 'This is Default'; 
-
-                            break;
-                    }
-    
                 $httpClient = new CurlHTTPClient($channel_token);
                 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
     
@@ -66,7 +51,7 @@ if (!is_null($events['events'])) {
                 $response = $bot->replyMessage($replyToken, $textMessageBuilder);
 
             
-            } catch(Exception $e) {
+            }  {
                 error_log($e->getMessage());
             }
 
