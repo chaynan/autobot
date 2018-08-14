@@ -74,10 +74,15 @@ if (!is_null($events['events'])) {
                         //     $statement->execute($params);
                         // }
                         case 'image':
-                            $messageID = $event['message']['id']; 
+                            $messageID = $event['message']['type']; 
                             $respMessage = 'Hello, your image ID is '. $messageID; 
-                            $respMessage = 'Your data has saved.';
-                            break;
+                            $params = array(
+                                'userID' => $event['source']['userId'],
+                                'answer' => $event['message']['type'],
+                            );
+                            $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
+                            $statement->execute($params);   
+                        break;
 
                         default: 
                             $respMessage = 'This is Default'; 
