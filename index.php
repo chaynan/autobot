@@ -14,36 +14,64 @@ $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 
 if (!is_null($events['events'])) {
+
 	// Loop through each event
 	foreach ($events['events'] as $event) {
     
         // Line API send a lot of event type, we interested in message only.
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+
             // Get replyToken
             $replyToken = $event['replyToken'];
-            $host = 'ec2-174-129-223-193.compute-1.amazonaws.com';
-            $dbname = 'd74bjtc28mea5m';
-            $user = 'eozuwfnzmgflmu';
-            $pass = '2340614a293db8e8a8c02753cd5932cdee45ab90bfcc19d0d306754984cbece1';
-            $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
+
+            try {
+                // Check to see user already answer
+                $host = 'ec2-23-23-242-163.compute-1.amazonaws.com';
+                $dbname = 'dfitqn78lbn0av';
+                $user = 'gwuaimhybkhmyz';
+                $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
+                $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
+    
+                    switch($event['message']['type']){
+                        case 'text':
+                        $data_user = $event['message']['text'];
+                        $respMessage = $data_user;
+                        
+                        $params = array(
+                                    'userID' => $event['source']['userId'],
+                                    'answer' => $event['message']['text'],
+                                );
+                            $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
+                            $statement->execute($params);   
+
+                        break;
+                        
+                        case 'image':
+                            $messageID =$event['message']['id'];
+                            $respMessage = $messageID; 
+                   
+    
+                        break;
+
+                        default: 
+                            $respMessage = 'This is Default'; 
+
+                            break;
+                    }
+    
+                $httpClient = new CurlHTTPClient($channel_token);
+                $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
+    
+                $textMessageBuilder = new TextMessageBuilder($respMessage);
+                $response = $bot->replyMessage($replyToken, $textMessageBuilder);
+
             
-            $params = array(
-                'log' => $event['message']['text'],
-            );
-            $statement = $connection->prepare("INSERT INTO logs (log) VALUES (:log)");
-            $result = $statement->execute($params);
-            if($result){
-                $respMessage = 'Log:'.$event['message']['text'].' Success';
-            }else{
-                $respMessage = 'Log:'.$event['message']['text'].' Fail';
+            } catch(Exception $e) {
+                error_log($e->getMessage());
             }
-            
-            $httpClient = new CurlHTTPClient($channel_token);
-            $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
-            $textMessageBuilder = new TextMessageBuilder($respMessage);
-            $response = $bot->replyMessage($replyToken, $textMessageBuilder);
- 
+
 		}
 	}
 }
+
 echo "OK";
