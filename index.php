@@ -34,15 +34,31 @@ if (!is_null($events['events'])) {
     
                     switch($event['message']['type']){
                         case 'text':
-                        $data_user = $event['message']['text'];
-                        $respMessage = $data_user;
+                     // Split message then keep it in database. 
+                        $appointments = explode(',', $event['message']['text']);
+                         if(count($appointments) == 2) {
+                            $params = array(
+                                'user_name' => $appointments[0],
+                                'answer' => $appointments[1],
+                                'user_id'=>$event['source']['userId'],
+                            );
+                
+                            $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ) VALUES (:user_name,:answer, :user_id)");
+                            $result = $statement->execute($params);
+                
+                            $respMessage = 'Your appointment has saved.';
+                        }else{
+                            $respMessage = 'You can send appointment like this "12.00,House keeping." ';
+                        }
+                        // $data_user = $event['message']['text'];
+                        // $respMessage = $data_user;
                         
-                        $params = array(
-                                    'userID' => $event['source']['userId'],
-                                    'answer' => $event['message']['text'],
-                                );
-                            $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
-                            $statement->execute($params);   
+                        // $params = array(
+                        //             'userID' => $event['source']['userId'],
+                        //             'answer' => $event['message']['text'],
+                        //         );
+                        //     $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
+                        //     $statement->execute($params);   
 
                         break;
                         
