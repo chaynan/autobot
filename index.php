@@ -58,10 +58,10 @@ if (!is_null($events['events'])) {
                                 fwrite($file, $response->getRawBody());
                                     $params = array(
                                         'user_id' => $event['source']['userId'] ,
-                                        'image' => $fileName,
+                                        'image_test' => $fileName,
                                         'content' => "test",
                                     );
-                                    $statement = $connection->prepare('INSERT INTO appointments (user_id, image, content) VALUES (:user_id, :image, :content)');
+                                    $statement = $connection->prepare('INSERT INTO appointments (user_id, image_test, content) VALUES (:user_id, :image_test, :content)');
                                     $statement->execute($params);
 
                                     $respMessage = 'Complete';
