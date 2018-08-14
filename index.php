@@ -109,13 +109,13 @@ $events = json_decode($content, true);
                 $response = $bot->replyMessage($replyToken, $textMessageBuilder);
 
             
-            } catch(Exception $e) {
-                error_log($e->getMessage());
-            }
+            // } catch(Exception $e) {
+            //     error_log($e->getMessage());
+            // }
 
-		}
-	}
-}
+		// }
+// 	}
+// }
 
 echo "OK";
 function send_reply_message($url, $post_header, $post_body)
