@@ -53,7 +53,7 @@ if (!is_null($events['events'])) {
                             'time_id'=>$appointments[2],
                             'user_id'=>$event['source']['userId'],
                         );
-                            $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ,time_id ) VALUES (:user_name,:answer, :user_id,time_id)");
+                            $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ,time_id ) VALUES (:user_name,:answer, :user_id,:time_id)");
                             $result = $statement->execute($params);
                 
                             $respMessage = 'บันทึกแล้วจ้า.';
