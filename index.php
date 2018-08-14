@@ -22,6 +22,7 @@ if (!is_null($events['events'])) {
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 
             // Get replyToken
+            $respMessage = '';
             $replyToken = $event['replyToken'];
 
             try {
