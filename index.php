@@ -49,14 +49,7 @@ if (!is_null($events['events'])) {
                         case 'image':
                             $messageID =$event['message']['id'];
                             $respMessage = $messageID; 
-                            $params = array(
-                                'userID' => $event['source']['userid'],
-                                'test' =>  $event['message']['id'],
-                            );
-                            
-                           $statement = $connection->prepare('INSERT INTO poll ( user_id, test ) VALUES ( :userID, :test )');
-                            $statement->execute($params);   
-
+                   
     
                         break;
 
