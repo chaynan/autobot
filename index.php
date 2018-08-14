@@ -50,9 +50,9 @@ if (!is_null($events['events'])) {
                           
                             $fileID = $event['message']['id'];
                     
-                            // $response = $bot->getMessageContent($fileID);
-                            // $fileName = md5(date('Y-m-d')).'.jpg';
-                            $respMessage = $fileID;
+                            //$response = $bot->getMessageContent($fileID);
+                            $fileName = md5(date('Y-m-d')).'.jpg';
+                            $respMessage = $fileName;
                             // if ($response->isSucceeded()) {
                             //     $respMessage = "Complete";
                             //     // Create file.
