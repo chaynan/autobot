@@ -48,15 +48,15 @@ if (!is_null($events['events'])) {
                         
                         case 'image':
                             $messageID =$event['message']['id'];
-                            $respMessage = 'Hello, your image ID is '. $messageID; 
+                            $respMessage = 'Hello, your image ID is '.$messageID; 
                             $params = array(
                                 'userID' => $event['source']['userId'],
                                 'answer' =>  $event['message']['id'],
                             );
-                            break;
-                            $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
+                            
+                           $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
                             $statement->execute($params);   
-
+                        break;
                         default: 
                             $respMessage = 'This is Default'; 
                             break;
