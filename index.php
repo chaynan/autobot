@@ -47,10 +47,27 @@ if (!is_null($events['events'])) {
                         break;
                         
                         case 'image':
-                            $messageID =$event['message']['id'];
-                            $respMessage = $messageID; 
-                   
-    
+                          
+                            $fileID = $event['message']['id'];
+                    
+                            $response = $bot->getMessageContent($fileID);
+                            $fileName = md5(date('Y-m-d')).'.jpg';
+                            if ($response->isSucceeded()) {
+                                // Create file.
+                                $file = fopen($fileName, 'w');
+                                fwrite($file, $response->getRawBody());
+                                    $params = array(
+                                        'user_id' => $event['source']['userId'] ,
+                                        'image' => $fileName,
+                                        'content' => "test",
+                                    );
+                                    $statement = $connection->prepare('INSERT INTO appointments (user_id, image, content) VALUES (:user_id, :image, :content)');
+                                    $statement->execute($params);
+
+                                    $respMessage = 'Complete';
+                                }
+                            
+        
                         break;
 
                         default: 
