@@ -19,7 +19,7 @@ if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) {
     
         // Line API send a lot of event type, we interested in message only.
-		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+		if ($event['type'] == 'message' ) {
 
             // Get replyToken
             $replyToken = $event['replyToken'];
@@ -31,40 +31,93 @@ if (!is_null($events['events'])) {
                 $user = 'gwuaimhybkhmyz';
                 $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
+    
+                    switch($event['message']['type']){
+                        case 'text':
+                     // Split message then keep it in database. 
+                        $appointments = explode(',', $event['message']['text']);
+                         if(count($appointments) == 2) {
+                            $params = array(
+                                'user_name' => $appointments[0],
+                                'answer' => $appointments[1],
+                                'user_id'=>$event['source']['userId'],
+                            );
+                            $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ) VALUES (:user_name,:answer, :user_id)");
+                            $result = $statement->execute($params);
+                
+                            $respMessage = 'บันทึกแล้วจ้า.';
+                        }else if(count($appointments) == 3){
+                        $params = array(
+                            'user_name' => $appointments[0],
+                            'answer' => $appointments[1],
+                            'time_id'=>$appointments[2],
+                            'user_id'=>$event['source']['userId'],
+                        );
+                            $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ,time_id ) VALUES (:user_name,:answer, :user_id,:time_id)");
+                            $result = $statement->execute($params);
+                
+                            $respMessage = 'บันทึกแล้วจ้า.';
+                        }else{
+                            $respMessage = 'กรุณากรอกข้อมูลตามรูปแบบ เช่น สตท.1,ปัญหา หรือ สตท.1,ปัญหา,ว/ด/ป. ';
+                        }
+                        // $data_user = $event['message']['text'];
+                        // $respMessage = $data_user;
+                        
+                        // $params = array(
+                        //             'userID' => $event['source']['userId'],
+                        //             'answer' => $event['message']['text'],
+                        //         );
+                        //     $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
+                        //     $statement->execute($params);   
 
-                if ( sizeof($request_array['events']) > 0 )
-                {
-                
-                foreach ($request_array['events'] as $event)
-                {
-                  $reply_message = '';
-                  $reply_token = $event['replyToken'];
-                
-                if ( $event['type'] == 'message' ) 
-                {
-                if( $event['message']['type'] == 'text' )
-                {
-                $text = $event['message']['text'];
-                $reply_message = 'ระบบได้รับข้อความ ('.$text.') ของคุณแล้ว';
-                }
-                else
-                $reply_message = 'ระบบได้รับ '.ucfirst($event['message']['type']).' ของคุณแล้ว';  
-                }
-                else
-                $reply_message = 'ระบบได้รับ Event '.ucfirst($event['type']).' ของคุณแล้ว';
-                if( strlen($reply_message) > 0 )
-                {
-                //$reply_message = iconv("tis-620","utf-8",$reply_message);
-                $data = [
-                'replyToken' => $reply_token,
-                'messages' => [['type' => 'text', 'text' => $reply_message]]
-                ];
-                $post_body = json_encode($data, JSON_UNESCAPED_UNICODE);
-                
-                $send_result = send_reply_message($API_URL, $POST_HEADER, $post_body);
-                echo "Result: ".$send_result."\r\n";
-                  }
-                 }
-                }
-                $statement = $connection->prepare('INSERT INTO poll ( user_id, answer ) VALUES ( :userID, :answer )');
-                $statement->execute($params);      
+                        break;
+                        
+                        case 'image':
+                          
+                            $fileID = $event['message']['id'];
+                    
+                            //$response = $bot->getMessageContent($fileID);
+                            $fileName = md5(date('Y-m-d')).'.jpg';
+                            $respMessage = $fileName;
+                            // if ($response->isSucceeded()) {
+                            //     $respMessage = "Complete";
+                            //     // Create file.
+                            //     // $file = fopen($fileName, 'w');
+                            //     // fwrite($file, $response->getRawBody());
+                                    $params = array(
+                                        'user_id' => $event['source']['userId'] ,
+                                        'image_test' => $fileName,
+                                        'content' => "test",
+                                    );
+                                    $statement = $connection->prepare('INSERT INTO appointments (user_id, image_test, content) VALUES (:user_id, :image_test, :content)');
+                                    $statement->execute($params);
+
+                            //     //     $respMessage = 'Complete';
+                            //     }else{
+                            //         $respMessage = "Not Complete";
+                            //     }
+        
+
+                        break;
+
+                        default: 
+                            $respMessage = 'This is Default'; 
+
+                            break;
+                    }
+                $httpClient = new CurlHTTPClient($channel_token);
+                $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
+    
+                $textMessageBuilder = new TextMessageBuilder($respMessage);
+                $response = $bot->replyMessage($replyToken, $textMessageBuilder);
+
+            
+            } catch(Exception $e) {
+                error_log($e->getMessage());
+            }
+
+		}
+	}
+}
+
+echo "OK";
