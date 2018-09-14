@@ -63,11 +63,17 @@ if (!is_null($events['events'])) {
                         }
                         
                         break;
-                        
+                                            // Bot response 
+                    $respMessage = 'Your data has saved.';
+                    $replyToken = $event['replyToken'];
+                    $textMessageBuilder = new TextMessageBuilder($respMessage);
+                    $response = $bot->replyMessage($replyToken, $textMessageBuilder);
+                    break;
 
                         case 'image':
                           
                             $fileID = $event['message']['id'];
+                            $response = $bot->getMessageContent($fileID);
                             $fileName = md5(date('Y-m-d')).'.jpg';
                             $respMessage = $fileName;
 
