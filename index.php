@@ -35,7 +35,7 @@ if (!is_null($events['events'])) {
                 if($event['message']['type']=='text'){
                    $text = $event['message']['text'];
                        
-                   $sql = sprintf("SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1"); 
+                   $sql = "SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1"; 
                    $result = $connection->query($sql);
                    $respMessage = $sql;
 
