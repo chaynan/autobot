@@ -52,7 +52,7 @@ if (!is_null($events['events'])) {
                             
 
                    }
-                }
+                
     
                     // switch($event['message']['type']){
                     //     case 'text':
