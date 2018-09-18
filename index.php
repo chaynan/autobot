@@ -35,23 +35,18 @@ if (!is_null($events['events'])) {
                 if($event['message']['type']=='text'){
                    $text = $event['message']['text'];
                        
-                   $sql = "SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1"; 
-                   $result = $connection->query($sql);
-                   $respMessage = $sql;
+                    $data = $connection->query("SELECT result FROM test WHERE key='$text' LIMIT 1")->fetchAll();
+                    $data1 = $connection->query("SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1")->fetchAll();
 
-
-                    // $data = $connection->query("SELECT result FROM test WHERE key='$text' LIMIT 1")->fetchAll();
-                    // $data1 = $connection->query("SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1")->fetchAll();
-
-                    // if($data > 0){
-                    //     foreach ($data as $row) {
-                    //         $respMessage = $row['result'];
-                    //     }
-                    // }else if($data1 > 0){
-                    //     foreach ($data1 as $row) {
-                    //         $respMessage = $row['result'];
-                    //     }
-                    // }
+                    if($data > 0){
+                        foreach ($data as $row) {
+                            $respMessage = $row['result'];
+                        }
+                    }elseif($data1 > 0){
+                        foreach ($data1 as $row) {
+                            $respMessage = $row['result'];
+                        }
+                    }
 
 
                             
