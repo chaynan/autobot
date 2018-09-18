@@ -33,36 +33,36 @@ if (!is_null($events['events'])) {
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
     
                     switch($event['message']['type']){
-                        case 'text':
+                        // case 'text':
  
-                        $appointments = explode(',', $event['message']['text']);
-                         if(count($appointments) == 2) {
-                            $params = array(
-                                'user_name' => $appointments[0],
-                                'answer' => $appointments[1],
-                                'user-id'=>$event['source']['userId'],
-                            );
-                            $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user-id ) VALUES (:user_name,:answer, :user-id)");
-                            $result = $statement->execute($params);
+                        // $appointments = explode(',', $event['message']['text']);
+                        //  if(count($appointments) == 2) {
+                        //     $params = array(
+                        //         'user_name' => $appointments[0],
+                        //         'answer' => $appointments[1],
+                        //         'user-id'=>$event['source']['userId'],
+                        //     );
+                        //     $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user-id ) VALUES (:user_name,:answer, :user-id)");
+                        //     $result = $statement->execute($params);
                 
-                            $respMessage = 'บันทึกแล้วจ้า.';
-                        }
-                        else if(count($appointments) == 3){
-                        $params = array(
-                            'user_name' => $appointments[0],
-                            'answer' => $appointments[1],
-                            'time_id'=>$appointments[2],
-                            'user-id'=>$event['source']['userId'],
-                        );
-                            $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user-id ,time_id ) VALUES (:user_name,:answer, :user-id,:time_id)");
-                            $result = $statement->execute($params);
+                        //     $respMessage = 'บันทึกแล้วจ้า.';
+                        // }
+                        // else if(count($appointments) == 3){
+                        // $params = array(
+                        //     'user_name' => $appointments[0],
+                        //     'answer' => $appointments[1],
+                        //     'time_id'=>$appointments[2],
+                        //     'user-id'=>$event['source']['userId'],
+                        // );
+                        //     $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user-id ,time_id ) VALUES (:user_name,:answer, :user-id,:time_id)");
+                        //     $result = $statement->execute($params);
                 
-                            $respMessage = 'บันทึกแล้วจ้า.';
-                        }else{
-                            $respMessage = 'กรุณากรอกข้อมูลตามรูปแบบ เช่น สตท.1,ปัญหา หรือ สตท.1,ปัญหา,ว/ด/ป. ';
-                        }
+                        //     $respMessage = 'บันทึกแล้วจ้า.';
+                        // }else{
+                        //     $respMessage = 'กรุณากรอกข้อมูลตามรูปแบบ เช่น สตท.1,ปัญหา หรือ สตท.1,ปัญหา,ว/ด/ป. ';
+                        // }
                         
-                        break;
+                        // break;
                         
                         case 'image':
                       
@@ -129,4 +129,4 @@ if (!is_null($events['events'])) {
 }
 
 echo "OK";
-?>ถ
+?>
