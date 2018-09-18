@@ -34,24 +34,15 @@ if (!is_null($events['events'])) {
 
                 if($event['message']['type']=='text'){
                    $text = $event['message']['text'];
-                    $appointments = explode(',', $event['message']['text']);
-                    if(count($appointments) == 2) {
-                    $params = array(
-                    'key' => $appointments[0],
-                    'result' => $appointments[1],
-                    );
-                            $data = $connection->prepare("INSERT INTO test (key,result) VALUES (:key,:result)");
-                            $result = $data->execute($params);
-                
-                            $respMessage = 'บันทึกแล้วจ้า.';                   
-                }
+  
                     $data = $connection->query("SELECT result FROM test WHERE key='$text' LIMIT 1")->fetchAll();
-                    
+                   
                     if($data){
                         foreach ($data as $row) {
                             $respMessage = $row['result'];
                         }
                     }else{
+                        
                         $data = $connection->query("SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1")->fetchAll();
 
                         if($data){
