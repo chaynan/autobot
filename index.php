@@ -38,7 +38,9 @@ if (!is_null($events['events'])) {
 
                    $texttest1 = stripos($text , $test);
                    if($texttest1 !== false){
-                        $respMessage = 'สวัสดี';
+                            $statement = $connection->prepare("SELECT result FROM test WHERE key=$test");
+                            $result = $statement->execute();
+                        $respMessage =$result;
                    }else{
                         $respMessage = 'not found.';
                    }
@@ -120,4 +122,4 @@ if (!is_null($events['events'])) {
 }
 
 echo "OK";
-?>ถ
+?>
