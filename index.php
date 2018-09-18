@@ -31,67 +31,79 @@ if (!is_null($events['events'])) {
                 $user = 'gwuaimhybkhmyz';
                 $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
+
+                if($event['message']['type']=='text'){
+                   $text = $event['message']['text'];
+                   $test = 'ดี';
+
+                   $texttest1 = stripos($text , $test);
+                   if($texttest1 !== false){
+                        $respMessage = 'สวัสดี';
+                   }else{
+                        $respMessage = 'not found.';
+                   }
+                }
     
-                    switch($event['message']['type']){
-                        case 'text':
+                    // switch($event['message']['type']){
+                    //     case 'text':
  
-                        $appointments = explode(',', $event['message']['text']);
-                         if(count($appointments) == 2) {
-                            $params = array(
-                                'user_name' => $appointments[0],
-                                'answer' => $appointments[1],
-                                'user_id'=>$event['source']['userId'],
-                            );
-                            $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ) VALUES (:user_name,:answer, :user_id)");
-                            $result = $statement->execute($params);
+                    //     $appointments = explode(',', $event['message']['text']);
+                    //      if(count($appointments) == 2) {
+                    //         $params = array(
+                    //             'user_name' => $appointments[0],
+                    //             'answer' => $appointments[1],
+                    //             'user_id'=>$event['source']['userId'],
+                    //         );
+                    //         $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ) VALUES (:user_name,:answer, :user_id)");
+                    //         $result = $statement->execute($params);
                 
-                            $respMessage = 'บันทึกแล้วจ้า.';
-                        }
-                        else if(count($appointments) == 3){
-                        $params = array(
-                            'user_name' => $appointments[0],
-                            'answer' => $appointments[1],
-                            'time_id'=>$appointments[2],
-                            'user_id'=>$event['source']['userId'],
-                        );
-                            $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ,time_id ) VALUES (:user_name,:answer, :user_id,:time_id)");
-                            $result = $statement->execute($params);
+                    //         $respMessage = 'บันทึกแล้วจ้า.';
+                    //     }
+                    //     else if(count($appointments) == 3){
+                    //     $params = array(
+                    //         'user_name' => $appointments[0],
+                    //         'answer' => $appointments[1],
+                    //         'time_id'=>$appointments[2],
+                    //         'user_id'=>$event['source']['userId'],
+                    //     );
+                    //         $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ,time_id ) VALUES (:user_name,:answer, :user_id,:time_id)");
+                    //         $result = $statement->execute($params);
                 
-                            $respMessage = 'บันทึกแล้วจ้า.';
-                        }else{
-                            $respMessage = 'กรุณากรอกข้อมูลตามรูปแบบ เช่น สตท.1,ปัญหา หรือ สตท.1,ปัญหา,ว/ด/ป. ';
-                        }
+                    //         $respMessage = 'บันทึกแล้วจ้า.';
+                    //     }else{
+                    //         $respMessage = 'กรุณากรอกข้อมูลตามรูปแบบ เช่น สตท.1,ปัญหา หรือ สตท.1,ปัญหา,ว/ด/ป. ';
+                    //     }
                         
-                        break;
+                    //     break;
                         
-                    $respMessage = 'Your data has saved.';
-                    $replyToken = $event['replyToken'];
-                    $textMessageBuilder = new TextMessageBuilder($respMessage);
-                    $response = $bot->replyMessage($replyToken, $textMessageBuilder);
-                    break;
+                    // $respMessage = 'Your data has saved.';
+                    // $replyToken = $event['replyToken'];
+                    // $textMessageBuilder = new TextMessageBuilder($respMessage);
+                    // $response = $bot->replyMessage($replyToken, $textMessageBuilder);
+                    // break;
 
-                        case 'image':
+                    //     case 'image':
                           
-                            $fileID = $event['message']['id'];
+                    //         $fileID = $event['message']['id'];
                       
-                            $fileName = md5(date('Y-m-d')).'.jpg';
-                            $respMessage = $fileName;
+                    //         $fileName = md5(date('Y-m-d')).'.jpg';
+                    //         $respMessage = $fileName;
 
-                                    $params = array(
-                                        'user_id' => $event['source']['userId'] ,
-                                        'image_test' => $fileName,
-                                        'content' => "test",
-                                    );
-                                    $statement = $connection->prepare('INSERT INTO appointments (user_id, image_test, content) VALUES (:user_id, :image_test, :content)');
-                                    $statement->execute($params);
+                    //                 $params = array(
+                    //                     'user_id' => $event['source']['userId'] ,
+                    //                     'image_test' => $fileName,
+                    //                     'content' => "test",
+                    //                 );
+                    //                 $statement = $connection->prepare('INSERT INTO appointments (user_id, image_test, content) VALUES (:user_id, :image_test, :content)');
+                    //                 $statement->execute($params);
   
-                        break;
+                    //     break;
 
-                        default: 
-                            $respMessage = 'This is Default'; 
+                    //     default: 
+                    //         $respMessage = 'This is Default'; 
 
-                            break;
-                    }
+                    //         break;
+                    // }
                 $httpClient = new CurlHTTPClient($channel_token);
                 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
     
