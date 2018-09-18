@@ -31,8 +31,6 @@ if (!is_null($events['events'])) {
                 $user = 'gwuaimhybkhmyz';
                 $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
-                $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 
                 if($event['message']['type']=='text'){
                    $text = $event['message']['text'];
@@ -40,19 +38,10 @@ if (!is_null($events['events'])) {
 
                    $texttest1 = stripos($text , $test);
                    if($texttest1 !== false){
-                    $stmt = $connection->prepare("SELECT result FROM test WHERE key='$test'"); 
-                    $stmt->execute();
-
-                    // $sql = sprintf("SELECT result FROM test WHERE key='$test' ");
-                    // $result = $connection->query($sql);
-
-                    // set the resulting array to associative
-                    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
-                    foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) { 
-                        $respMessage = $v;
-                    }
+                    $sql = sprintf("SELECT result FROM test WHERE key='$test' ");
+                    $result = $connection->query($sql);
                             
-                        // $respMessage =$result;
+                        $respMessage ='yes';
                    }else{
                         $respMessage = 'not found.';
                    }
