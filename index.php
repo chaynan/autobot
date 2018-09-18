@@ -40,7 +40,7 @@ if (!is_null($events['events'])) {
 
                     if($data > 0){
                         foreach ($data as $row) {
-                            $respMessage = $row['result'];
+                            $respMessage = $data1;
                         }
                     }else if($data1 > 0){
                         foreach ($data1 as $row) {
