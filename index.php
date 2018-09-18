@@ -45,7 +45,8 @@ if (!is_null($events['events'])) {
                            $result = $data->execute($params);
                
                            $respMessage = 'บันทึกแล้ว.';                   
-                   }
+                   }else{
+
                     $data = $connection->query("SELECT result FROM test WHERE key='$text' LIMIT 1")->fetchAll();
                    
                     if($data){
@@ -64,7 +65,10 @@ if (!is_null($events['events'])) {
                             $respMessage = "ไม่พบข้อมูล";
                         }
     
-                    }
+                    }                    
+
+                 }
+
 
 
                             
