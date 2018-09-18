@@ -33,80 +33,59 @@ if (!is_null($events['events'])) {
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
     
                     switch($event['message']['type']){
-                        // case 'text':
+                        case 'text':
  
-                        // $appointments = explode(',', $event['message']['text']);
-                        //  if(count($appointments) == 2) {
-                        //     $params = array(
-                        //         'user_name' => $appointments[0],
-                        //         'answer' => $appointments[1],
-                        //         'user-id'=>$event['source']['userId'],
-                        //     );
-                        //     $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user-id ) VALUES (:user_name,:answer, :user-id)");
-                        //     $result = $statement->execute($params);
+                        $appointments = explode(',', $event['message']['text']);
+                         if(count($appointments) == 2) {
+                            $params = array(
+                                'user_name' => $appointments[0],
+                                'answer' => $appointments[1],
+                                'user_id'=>$event['source']['userId'],
+                            );
+                            $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ) VALUES (:user_name,:answer, :user_id)");
+                            $result = $statement->execute($params);
                 
-                        //     $respMessage = 'บันทึกแล้วจ้า.';
-                        // }
-                        // else if(count($appointments) == 3){
-                        // $params = array(
-                        //     'user_name' => $appointments[0],
-                        //     'answer' => $appointments[1],
-                        //     'time_id'=>$appointments[2],
-                        //     'user-id'=>$event['source']['userId'],
-                        // );
-                        //     $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user-id ,time_id ) VALUES (:user_name,:answer, :user-id,:time_id)");
-                        //     $result = $statement->execute($params);
-                
-                        //     $respMessage = 'บันทึกแล้วจ้า.';
-                        // }else{
-                        //     $respMessage = 'กรุณากรอกข้อมูลตามรูปแบบ เช่น สตท.1,ปัญหา หรือ สตท.1,ปัญหา,ว/ด/ป. ';
-                        // }
-                        
-                        // break;
-                        
-                        case 'image':
-                      
-                        $fileID = $event['message']['id'];
-                        
-                        $response = $bot->getMessageContent($fileID);
-                        $fileName = md5(date('Y-m-d')).'.jpg';
-                        
-                        if ($response->isSucceeded()) {
-                            // Create file.
-                            $file = fopen($fileName, 'w');
-                            fwrite($file, $response->getRawBody());
-                            $sql = sprintf(
-                                        "SELECT * FROM slips WHERE slip-name='%s' AND user-id='%s' ", 
-                                        date('Y-m-d'),
-                                        $event['source']['userId']);
-                            $result = $connection->query($sql);
-                            if($result !== false && $result->rowCount() >0) {
-                                // Save database
-                                $params = array(
-                                    'image' => $fileName,
-                                    'slip-name' => date('Y-m-d'),
-                                    'user-id' => $event['source']['userId'],
-                                );
-                                $statement = $connection->prepare('UPDATE slips SET image=:image WHERE slip-name=:slip-name AND user-id=:user-id');
-                                $statement->execute($params);
-                                
-                            } else {
-                                $params = array(
-                                    'user-id' => $event['source']['userId'] ,
-                                    'image' => $fileName,
-                                    'slip-name' => date('Y-m-d'),
-                                );
-                                $statement = $connection->prepare('INSERT INTO slips (user-id, image, slip-name) VALUES (:user-id, :image, :slip-name)');
-                                $statement->execute($params);
-                            }
+                            $respMessage = 'บันทึกแล้วจ้า.';
                         }
-                        // Bot response 
-                        $respMessage = 'Your data has saved.';
-                        $replyToken = $event['replyToken'];
-                        $textMessageBuilder = new TextMessageBuilder($respMessage);
-                        $response = $bot->replyMessage($replyToken, $textMessageBuilder);
+                        else if(count($appointments) == 3){
+                        $params = array(
+                            'user_name' => $appointments[0],
+                            'answer' => $appointments[1],
+                            'time_id'=>$appointments[2],
+                            'user_id'=>$event['source']['userId'],
+                        );
+                            $statement = $connection->prepare("INSERT INTO poll (user_name, answer , user_id ,time_id ) VALUES (:user_name,:answer, :user_id,:time_id)");
+                            $result = $statement->execute($params);
+                
+                            $respMessage = 'บันทึกแล้วจ้า.';
+                        }else{
+                            $respMessage = 'กรุณากรอกข้อมูลตามรูปแบบ เช่น สตท.1,ปัญหา หรือ สตท.1,ปัญหา,ว/ด/ป. ';
+                        }
                         
-                        break; 
+                        break;
+                        
+                    $respMessage = 'Your data has saved.';
+                    $replyToken = $event['replyToken'];
+                    $textMessageBuilder = new TextMessageBuilder($respMessage);
+                    $response = $bot->replyMessage($replyToken, $textMessageBuilder);
+                    break;
+
+                        case 'image':
+                          
+                            $fileID = $event['message']['id'];
+                            $response = $bot->getMessageContent($fileID);
+                            $fileName = md5(date('Y-m-d')).'.jpg';
+                            $respMessage = $fileName;
+
+                                    $params = array(
+                                        'user_id' => $event['source']['userId'] ,
+                                        'image_test' => $fileName,
+                                        'content' => "test",
+                                    );
+                                    $statement = $connection->prepare('INSERT INTO appointments (user_id, image_test, content) VALUES (:user_id, :image_test, :content)');
+                                    $statement->execute($params);
+  
+                        break;
 
                         default: 
                             $respMessage = 'This is Default'; 
@@ -129,4 +108,4 @@ if (!is_null($events['events'])) {
 }
 
 echo "OK";
-?>
+?>ถ
