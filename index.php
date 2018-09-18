@@ -40,6 +40,7 @@ if (!is_null($events['events'])) {
                    if($texttest1 !== false){
                             $statement = $connection->prepare("SELECT result FROM test WHERE key=$test");
                             $result = $statement->execute();
+                            echo $result;
                         $respMessage =$result;
                    }else{
                         $respMessage = 'not found.';
