@@ -36,7 +36,7 @@ if (!is_null($events['events'])) {
                    $text = $event['message']['text'];
                        
                     $data = $connection->query("SELECT result FROM test WHERE key='$text' LIMIT 1")->fetchAll();
-                    $respMessage = $data
+                    $respMessage = $data;
                     // if($data > 0){
                     //     foreach ($data as $row) {
                     //         $respMessage = $row['result'];
@@ -51,15 +51,12 @@ if (!is_null($events['events'])) {
                     //     }else{
                     //         $respMessage = "ไม่พบข้อมูล";
                     //     }
-                    
     
                     // }
 
 
                             
-
-                   }
-                
+                    }
     
                     // switch($event['message']['type']){
                     //     case 'text':
