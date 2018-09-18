@@ -40,16 +40,10 @@ if (!is_null($events['events'])) {
                    if($texttest1 !== false){
                     // $sql = sprintf("SELECT result FROM test WHERE key='$test' ");
                     // $result = $connection->query($sql);
-
-                    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    $stmt = $connection->prepare("SELECT result FROM test WHERE key='$test'"); 
-                    $stmt->execute();
-                
-                    // set the resulting array to associative
-                    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
-                
-                    foreach($stmt->fetchAll() as $k=>$v) { 
-                        $respMessage = $v;
+                    $data = $connection->query("SELECT result FROM test WHERE key='$test' LIMIT 1")->fetchAll();
+                    // and somewhere later:
+                    foreach ($data as $row) {
+                        $respMessage = $row['result'];
                     }
                             
 
