@@ -41,7 +41,7 @@ if (!is_null($events['events'])) {
                     $sql = sprintf("SELECT result FROM test WHERE key='$test' ");
                     $result = $connection->query($sql);
                             
-                        $respMessage =$sql;
+                        $respMessage =$result;
                    }else{
                         $respMessage = 'not found.';
                    }
