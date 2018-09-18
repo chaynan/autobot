@@ -40,12 +40,11 @@ if (!is_null($events['events'])) {
                     'key' => $appointments[0],
                     'result' => $appointments[1],
                     );
-                            $statement = $connection->prepare("INSERT INTO test (key,result) VALUES (:key,:result)");
-                            $result = $statement->execute($params);
+                            $data = $connection->prepare("INSERT INTO test (key,result) VALUES (:key,:result)");
+                            $result = $data->execute($params);
                 
-                            $respMessage = 'บันทึกแล้วจ้า.'; 
-                        }                  
-                       
+                            $respMessage = 'บันทึกแล้วจ้า.';                   
+                }
                     $data = $connection->query("SELECT result FROM test WHERE key='$text' LIMIT 1")->fetchAll();
                     
                     if($data){
@@ -53,7 +52,6 @@ if (!is_null($events['events'])) {
                             $respMessage = $row['result'];
                         }
                     }else{
-                        
                         $data = $connection->query("SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1")->fetchAll();
 
                         if($data){
