@@ -38,9 +38,9 @@ if (!is_null($events['events'])) {
 
                    $texttest1 = stripos($text , $test);
                    if($texttest1 !== false){
-                            $statement = $connection->prepare("SELECT result FROM test WHERE key=$test");
-                            $result = $statement->execute();
-                            echo $result;
+                    $sql = sprintf("SELECT result FROM test WHERE key=$test");
+                    $result = $connection->query($sql);
+                            
                         $respMessage =$result;
                    }else{
                         $respMessage = 'not found.';
