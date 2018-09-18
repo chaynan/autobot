@@ -73,7 +73,7 @@ if (!is_null($events['events'])) {
                         case 'image':
                           
                             $fileID = $event['message']['id'];
-                            $response = $bot->getMessageContent($fileID);
+                      
                             $fileName = md5(date('Y-m-d')).'.jpg';
                             $respMessage = $fileName;
 
