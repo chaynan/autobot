@@ -38,13 +38,21 @@ if (!is_null($events['events'])) {
 
                    $texttest1 = stripos($text , $test);
                    if($texttest1 !== false){
-                    $sql = sprintf("SELECT result FROM test WHERE key='$test' ");
-                    $result = $connection->query($sql);
-                            
-                    foreach($result->fetchAll() as $k=>$v){
+                    // $sql = sprintf("SELECT result FROM test WHERE key='$test' ");
+                    // $result = $connection->query($sql);
 
-                        $respMessage = $v; 
+                    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $stmt = $connection->prepare("SELECT result FROM test WHERE key='$test'"); 
+                    $stmt->execute();
+                
+                    // set the resulting array to associative
+                    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
+                
+                    foreach($stmt->fetchAll() as $k=>$v) { 
+                        $respMessage = $v;
                     }
+                            
+
                    }else{
                         $respMessage = 'not found.';
                    }
