@@ -38,10 +38,10 @@ if (!is_null($events['events'])) {
 
                    $texttest1 = stripos($text , $test);
                    if($texttest1 !== false){
-                    $sql = sprintf("SELECT result FROM test WHERE key=$test");
+                    $sql = sprintf("SELECT result FROM test WHERE key='$test' ");
                     $result = $connection->query($sql);
                             
-                        // $respMessage =$result;
+                        $respMessage =$sql;
                    }else{
                         $respMessage = 'not found.';
                    }
