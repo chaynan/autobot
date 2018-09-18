@@ -41,7 +41,11 @@ if (!is_null($events['events'])) {
                     $sql = sprintf("SELECT result FROM test WHERE key='$test' ");
                     $result = $connection->query($sql);
                             
-                        $respMessage ='yes';
+                    if($result){ 
+                        $amount = $result->rowCount(); 
+                    
+                    }
+                        $respMessage = $amount;
                    }else{
                         $respMessage = 'not found.';
                    }
