@@ -39,9 +39,10 @@ if (!is_null($events['events'])) {
                     $data1 = $connection->query("SELECT result FROM test WHERE key LIKE '$text%' LIMIT 1")->fetchAll();
 
                     if($data > 0){
-                        foreach ($data as $row) {
-                            $respMessage = $data1;
-                        }
+                        $respMessage = $data1;
+                        // foreach ($data as $row) {
+                        //     $respMessage = $data1;
+                        // }
                     }else if($data1 > 0){
                         foreach ($data1 as $row) {
                             $respMessage = $row['result'];
