@@ -39,7 +39,7 @@ if (!is_null($events['events'])) {
 
                 if(count($appointments) == 2) {
                    $key = $appointments[0];
-
+                   $respMessage =$key;
                    $params = array(
                    'key' => $appointments[0],
                    'result' => $appointments[1],
