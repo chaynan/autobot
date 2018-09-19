@@ -54,12 +54,6 @@ if (!is_null($events['events'])) {
                                     $id = $row['id'];
                                 }
 
-                                $params = array(
-                                    'key' => $appointments[0],
-                                    'result' => $appointments[1],
-                                    'time' => date("Y-m-d h:i:sa")
-                                    );
-
                                 $sqlupdate= $connection->prepare("UPDATE test SET key=:key, result=:result,time=:time WHERE id='$id' ");
                                 $sql_suc = $sqlupdate->execute($params);
 
@@ -70,12 +64,6 @@ if (!is_null($events['events'])) {
                                 }
                                 
                             }else{
-
-                                $params = array(
-                                    'key' => $appointments[0],
-                                    'result' => $appointments[1],
-                                    'time' => date("Y-m-d h:i:sa")
-                                    );
                                     
                                 $data = $connection->prepare("INSERT INTO test (key,result,time) VALUES (:key,:result,:time)");
                                 $result = $data->execute($params);
@@ -83,7 +71,7 @@ if (!is_null($events['events'])) {
                                 if($result){
                                     $respMessage = 'บันทึกแล้ว';
                                 }else{
-                                    $respMessage = $data;
+                                    $respMessage = $data."=".$checkkey;
                                 }
                             }
                  
