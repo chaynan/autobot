@@ -48,7 +48,7 @@ if (!is_null($events['events'])) {
                 // $key = $appointments[0];
                 // $result = $appointments[1];
                 // $time= date("Y-m-d h:i:sa") ;
-                            $checkkey = $connection->query("SELECT key FROM test WHERE key='$key' LIMIT 1")->fetchAll();
+                            $checkkey = $connection->query("SELECT * FROM test WHERE key='$key' LIMIT 1")->fetchAll();
                             if($checkkey){
                                 foreach ($checkkey as $row) {
                                     $respMessage = $row['id'];
