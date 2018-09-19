@@ -54,7 +54,7 @@ if (!is_null($events['events'])) {
                                     $id = $row['id'];
                                 }
 
-                                $sqlupdate= $connection->prepare("UPDATE test SET result=:result,time=:time WHERE id='1' ");
+                                $sqlupdate= $connection->prepare("UPDATE test SET result=:result WHERE id='$id' ");
                                 $result = $sqlupdate->execute($params);
 
                                 if($result){
