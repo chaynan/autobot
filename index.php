@@ -51,7 +51,8 @@ if (!is_null($events['events'])) {
                             $checkkey = $connection->query("SELECT key FROM test WHERE key='$key' LIMIT 1")->fetchAll();
                             if($checkkey){
                                 foreach ($checkkey as $row) {
-                                    $id = $row['id'];
+                                    $respMessage = $row['id'];
+                                    
                                 }
 
                                 // $sqlupdate= $connection->prepare("UPDATE test SET result=:result,time=:time WHERE id='$id' ");
@@ -66,7 +67,7 @@ if (!is_null($events['events'])) {
                                 $stmt->execute();
                             
                                 // echo a message to say the UPDATE succeeded
-                                $respMessage = $id;
+                                
                                 
                                 // if($result){
                                 //     $respMessage = 'อัพเดทแล้ว';
