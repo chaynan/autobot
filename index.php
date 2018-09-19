@@ -36,43 +36,66 @@ if (!is_null($events['events'])) {
                    $text = $event['message']['text'];
                    
                    $appointments = explode('==', $event['message']['text']);
-                   if(count($appointments) == 2) {
+
+                if(count($appointments) == 2) {
                    $params = array(
                    'key' => $appointments[0],
                    'result' => $appointments[1],
+                   'time' => date("Y-m-d h:i:sa")
                    );
-                           $data = $connection->prepare("INSERT INTO test (key,result) VALUES (:key,:result)");
-                           $result = $data->execute($params);
-               
-                           $respMessage = 'บันทึกแล้ว.';                   
+                // $key = $appointments[0];
+                // $result = $appointments[1];
+                // $time= date("Y-m-d h:i:sa") ;
+                            $checkkey = $connection->query("SELECT key FROM test WHERE key='$key'")->fetchAll();
+                            if($checkkey){
+                                foreach ($checkkey as $row) {
+                                    $id = $row['id'];
+                                }
+                            
+                                $sqlupdate= $connection->prepare("UPDATE test SET key=:key, result=:result,time=:time WHERE id='$id' ");
+                                $sql_suc = $sqlupdate->execute($params);
+
+                                if($sql_suc){
+                                    $respMessage = 'อัพเดทแล้ว';
+                                }else{
+                                    $respMessage = 'เกิดข้อผิดพลาด';
+                                }
+                                
+                            }else{
+                                $data = $connection->prepare("INSERT INTO test (key,result) VALUES (:key,:result,:time)");
+                                $result = $data->execute($params);
+                                
+                                if($result){
+                                    $respMessage = 'บันทึกแล้ว';
+                                }else{
+                                    $respMessage = 'เกิดข้อผิดพลาด';
+                                }
+                            }
+                 
                    }else{
 
                     $data = $connection->query("SELECT result FROM test WHERE key='$text' LIMIT 1")->fetchAll();
                    
                     if($data){
                         foreach ($data as $row) {
-                            $respMessage = $row['result'];
+                        $respMessage = $row['result'];
                         }
                     }else{
                         
-                        $data = $connection->query("SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1")->fetchAll();
+                    $data = $connection->query("SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1")->fetchAll();
 
-                        if($data){
-                            foreach ($data as $row) {
-                                $respMessage = $row['result'];
-                            }
-                        }else{
-                            $respMessage = "ไม่พบข้อมูล";
+                    if($data){
+                        foreach ($data as $row) {
+                        $respMessage = $row['result'];
+                        }
+                    }else{
+                        $respMessage = "ไม่พบข้อมูล";
                         }
     
                     }                    
 
-                 }
-
-
-
-                            
-                    }
+                }          
+                }
     
                     // switch($event['message']['type']){
                     //     case 'text':
