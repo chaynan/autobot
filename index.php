@@ -54,10 +54,20 @@ if (!is_null($events['events'])) {
                                     $id = $row['id'];
                                 }
 
-                                $sqlupdate= $connection->prepare("UPDATE test SET result=:result,time=:time WHERE id='$id' ");
-                                $result = $sqlupdate->execute($params);
+                                // $sqlupdate= $connection->prepare("UPDATE test SET result=:result,time=:time WHERE id='$id' ");
+                                // $result = $sqlupdate->execute($params);
+
+                                $sql = "UPDATE test SET result=:result,time=:time WHERE id='$id'";
+
+                                // Prepare statement
+                                $stmt = $connection->prepare($sql);
+                            
+                                // execute the query
+                                $stmt->execute();
+                            
+                                // echo a message to say the UPDATE succeeded
+                                $respMessage = $stmt->rowCount() . " records UPDATED successfully";
                                 
-                                $respMessage = $sqlupdate;
                                 // if($result){
                                 //     $respMessage = 'อัพเดทแล้ว';
                                 // }else{
