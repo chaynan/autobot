@@ -64,13 +64,13 @@ if (!is_null($events['events'])) {
                                 
                             }else{
                                     
-                                $data = $connection->prepare("INSERT INTO test (key,result,time) VALUES (:key,:result,:time)");
+                                $data = $connection->prepare("INSERT INTO test (id,key,result,time) VALUES (1,:key,:result,:time)");
                                 $result = $data->execute($params);
                                 
                                 if($result){
                                     $respMessage = 'บันทึกแล้ว';
                                 }else{
-                                    $respMessage = $data."=".$checkkey;
+                                    $respMessage = 'เกิดข้อผิดพลาด2';
                                 }
                             }
                  
