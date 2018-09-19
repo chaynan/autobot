@@ -31,7 +31,6 @@ if (!is_null($events['events'])) {
                 $user = 'gwuaimhybkhmyz';
                 $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
-                $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 if($event['message']['type']=='text'){
                    $text = $event['message']['text'];
@@ -56,7 +55,7 @@ if (!is_null($events['events'])) {
                                     
                                 }
 
-                                $sqlupdate= $connection->prepare("UPDATE test SET result=:result,time=:time WHERE id='$id' ");
+                                $sqlupdate= $connection->prepare("UPDATE test SET key=:key, result=:result, time=:time WHERE id='$id' ");
                                 $result = $sqlupdate->execute($params);
                                 
                                 if($result){
