@@ -38,6 +38,7 @@ if (!is_null($events['events'])) {
                    $appointments = explode('==', $event['message']['text']);
 
                 if(count($appointments) == 2) {
+                    $key = $appointments[0];
 
                    $params = array(
                    'key' => $appointments[0],
@@ -64,7 +65,7 @@ if (!is_null($events['events'])) {
                                 
                             }else{
                                     
-                                $data = $connection->prepare("INSERT INTO test (id,key,result,time) VALUES (1,:key,:result,:time)");
+                                $data = $connection->prepare("INSERT INTO test (key,result,time) VALUES (:key,:result,:time)");
                                 $result = $data->execute($params);
                                 
                                 if($result){
