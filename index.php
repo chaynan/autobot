@@ -48,14 +48,14 @@ if (!is_null($events['events'])) {
                 // $key = $appointments[0];
                 // $result = $appointments[1];
                 // $time= date("Y-m-d h:i:sa") ;
-                            $checkkey = $connection->query("SELECT key FROM test WHERE key='$key'")->fetchAll();
+                            $checkkey = $connection->query("SELECT key FROM test WHERE key='$key' LIMIT 1")->fetchAll();
                             if($checkkey){
                                 foreach ($checkkey as $row) {
                                     $id = $row['id'];
-                                }
 
-                                $sqlupdate= $connection->prepare("UPDATE test SET result=:result,time=:time WHERE id='$id' ");
-                                $sql_suc = $sqlupdate->execute($params);
+                                    $sqlupdate= $connection->prepare("UPDATE test SET result=:result,time=:time WHERE id='$id' ");
+                                    $sql_suc = $sqlupdate->execute($params);
+                                }
 
                                 if($sql_suc){
                                     $respMessage = 'อัพเดทแล้ว';
