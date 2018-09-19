@@ -58,7 +58,7 @@ if (!is_null($events['events'])) {
                                 if($sql_suc){
                                     $respMessage = 'อัพเดทแล้ว';
                                 }else{
-                                    $respMessage = 'เกิดข้อผิดพลาด';
+                                    $respMessage = 'เกิดข้อผิดพลาด1';
                                 }
                                 
                             }else{
@@ -68,7 +68,7 @@ if (!is_null($events['events'])) {
                                 if($result){
                                     $respMessage = 'บันทึกแล้ว';
                                 }else{
-                                    $respMessage = 'เกิดข้อผิดพลาด';
+                                    $respMessage = 'เกิดข้อผิดพลาด2';
                                 }
                             }
                  
