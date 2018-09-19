@@ -41,9 +41,9 @@ if (!is_null($events['events'])) {
                     $key = $appointments[0];
 
                    $params = array(
-                   '_key' => $appointments[0],
-                   '_result' => $appointments[1],
-                   '_time' => date("Y-m-d h:i:sa")
+                   'key' => $appointments[0],
+                   'result' => $appointments[1],
+                   'time' => date("Y-m-d h:i:sa")
                    );
                 // $key = $appointments[0];
                 // $result = $appointments[1];
@@ -54,7 +54,7 @@ if (!is_null($events['events'])) {
                                     $id = $row['id'];
                                 }
 
-                                $sqlupdate= $connection->prepare("UPDATE test SET key=:_key, result=:_result,time=:_time WHERE id='$id' ");
+                                $sqlupdate= $connection->prepare("UPDATE test SET result=:result,time=:time WHERE id='$id' ");
                                 $sql_suc = $sqlupdate->execute($params);
 
                                 if($sql_suc){
