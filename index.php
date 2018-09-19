@@ -54,8 +54,8 @@ if (!is_null($events['events'])) {
                                     $id = $row['id'];
                                 }
 
-                                $sqlupdate= $connection->prepare("UPDATE test SET result=:result WHERE id='$id' ");
-                                $result = $sqlupdate->execute($params);
+                                $sqlupdate = "UPDATE test SET result=:result WHERE id='$id'";
+                                $result = $connection->prepare($sqlupdate)->execute($params);
 
                                 if($result){
                                     $respMessage = 'อัพเดทแล้ว';
