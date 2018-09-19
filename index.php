@@ -52,12 +52,12 @@ if (!is_null($events['events'])) {
                             if($checkkey){
                                 foreach ($checkkey as $row) {
                                     $id = $row['id'];
-
-                                    $sqlupdate= $connection->prepare("UPDATE test SET result=:result,time=:time WHERE id='$id' ");
-                                    $sql_suc = $sqlupdate->execute($params);
                                 }
 
-                                if($sql_suc){
+                                $sqlupdate= $connection->prepare("UPDATE test SET result=:result,time=:time WHERE id='1' ");
+                                $result = $sqlupdate->execute($params);
+
+                                if($result){
                                     $respMessage = 'อัพเดทแล้ว';
                                 }else{
                                     $respMessage = 'เกิดข้อผิดพลาด1';
