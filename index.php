@@ -90,30 +90,17 @@ if (!is_null($events['events'])) {
                         $respMessage = $row['result'];
                         }
                     }else{
-                    $data = $connection->query("SELECT result FROM test WHERE key LIKE '$text%' LIMIT 1")->fetchAll();
-                    if($data){
-                        foreach($data as $row){
-                            $respMessage = $row['result'];}
-                    }else{
-                    $data = $connection->query("SELECT result FROM test WHERE key LIKE '%$text' LIMIT 1")->fetchAll();
-                    if($data){
-                        foreach($data as $row){
-                            $respMessage = $row['result'];}
-                    }else{
-                    // $data = $connection->query("SELECT result FROM test WHERE key LIKE '$text_%_%' LIMIT 1")->fetchAll();
-                    if($data){
-                        foreach($data as $row){
-                            $respMessage = $row['result'];}
-                    }else{
+                        $respMessage = "ไม่พบข้อมูล";
+                        }
 
 
 
 
                     }
-                    }
-                    }
-                    }
-                    }                    
+                    
+                    
+                    
+                                     
 
                 }          
                 }
