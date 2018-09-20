@@ -41,13 +41,11 @@ if (!is_null($events['events'])) {
                     $key = $appointments[0];
 
                    $params = array(
-                   'key' => $appointments[0],
-                   'result' => $appointments[1],
-                   'time' => date("Y-m-d h:i:sa")
+                    'key' => $appointments[0],
+                    'result' => $appointments[1],
+                    'time' => date("Y-m-d h:i:sa")
                    );
-                // $key = $appointments[0];
-                // $result = $appointments[1];
-                // $time= date("Y-m-d h:i:sa") ;
+
                             $checkkey = $connection->query("SELECT * FROM test WHERE key='$key' LIMIT 1")->fetchAll();
                             if($checkkey){
                                 foreach ($checkkey as $row) {
@@ -61,7 +59,7 @@ if (!is_null($events['events'])) {
                                 if($result){
                                     $respMessage = 'อัพเดทแล้ว';
                                 }else{
-                                    $respMessage = 'เกิดข้อผิดพลาด1';
+                                    $respMessage = 'อัพเดทข้อผิดพลาด1';
                                 }
                                 
                             }else{
@@ -72,7 +70,7 @@ if (!is_null($events['events'])) {
                                 if($result){
                                     $respMessage = 'บันทึกแล้ว';
                                 }else{
-                                    $respMessage = 'เกิดข้อผิดพลาด2';
+                                    $respMessage = 'บันทึกข้อผิดพลาด2';
                                 }
                             }
                  
@@ -87,15 +85,34 @@ if (!is_null($events['events'])) {
                     }else{
                         
                     $data = $connection->query("SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1")->fetchAll();
-
                     if($data){
                         foreach ($data as $row) {
                         $respMessage = $row['result'];
                         }
                     }else{
-                        $respMessage = "ไม่พบข้อมูล";
-                        }
-    
+                    $data = $connection->query("SELECT result FROM test WHERE key LIKE '$text%' LIMIT 1")->fetchAll();
+                    if($data){
+                        foreach($data as $row){
+                            $respMessage = $row['result'];}
+                    }else{
+                    $data = $connection->query("SELECT result FROM test WHERE key LIKE '$text _ _%' LIMIT 1")->fetchAll();
+                    if($data){
+                        foreach($data as $row){
+                            $respMessage = $row['result'];}
+                    }else{
+                    $data = $connection->query("SELECT result FROM test WHERE key LIKE '$text_%_%' LIMIT 1")->fetchAll();
+                    if($data){
+                        foreach($data as $row){
+                            $respMessage = $row['result'];}
+                    }else{
+
+
+
+
+                    }
+                    }
+                    }
+                    }
                     }                    
 
                 }          
@@ -178,3 +195,6 @@ if (!is_null($events['events'])) {
 
 echo "OK";
 ?>
+<!-- else{
+    $respMessage = "ไม่พบข้อมูล";
+    } -->
