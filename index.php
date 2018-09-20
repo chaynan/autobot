@@ -96,7 +96,10 @@ if (!is_null($events['events'])) {
                             $respMessage = $row['result'];
                         }
                     }else{
-                        $respMessage = "ไม่พบข้อมูล";
+                        $data = $connection->query("SELECT result FROM test WHERE key LIKE '_$text%' LIMIT 1")->fetchAll();
+                        if($data){
+                            $respMessage = $row['result'];
+                        }
                     }
                     }                                      
                     }          
