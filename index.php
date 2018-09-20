@@ -82,36 +82,43 @@ if (!is_null($events['events'])) {
                         foreach ($data as $row) {
                         $respMessage = $row['result'];
                         }
+
                     }else{
-                        
-                    $data = $connection->query("SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1")->fetchAll();
-                    if($data){
-                        foreach ($data as $row) {
-                        $respMessage = $row['result'];
-                        }
-                    }else{
-                        $data = $connection->query("SELECT result FROM test WHERE key LIKE '%$text' LIMIT 1")->fetchAll();
+            
+                        $data = $connection->query("SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1")->fetchAll();
                         if($data){
-                            foreach ($data as $row) { 
+                            foreach ($data as $row) {
                             $respMessage = $row['result'];
-                        }
-                    }else{
-                        $data = $connection->query("SELECT result FROM test WHERE key LIKE '$text%' LIMIT 1")->fetchAll();
-                        if($data){
-                            $respMessage = $row['result'];
+                            }
                         }else{
-                            $data = $connection->query("SELECT result FROM test WHERE key LIKE '_$text%' LIMIT 1")->fetchAll();
+
+                            $data = $connection->query("SELECT result FROM test WHERE key LIKE '%$text' LIMIT 1")->fetchAll();
                             if($data){
+                                foreach ($data as $row) { 
                                 $respMessage = $row['result'];
+                                }
                             }else{
-                                $respMessage = "ไม่พบข้อมูล";
+
+                                $data = $connection->query("SELECT result FROM test WHERE key LIKE '$text%' LIMIT 1")->fetchAll();
+                                if($data){
+                                    foreach ($data as $row) { 
+                                    $respMessage = $row['result'];
+                                    }
+                                }else{
+                                    $data = $connection->query("SELECT result FROM test WHERE key LIKE '_$text%' LIMIT 1")->fetchAll();
+                                    if($data){
+                                        foreach ($data as $row) { 
+                                        $respMessage = $row['result'];
+                                        }
+                                    }else{
+                                        $respMessage = "ไม่พบข้อมูล";
+                                        }
+                                    }
+                                }
+                            }                                      
+                        }          
                     }
-                    }
-                    }
-                    }                                      
-                    }          
-                    }
-                    }
+                }
                     // switch($event['message']['type']){
                     //     case 'text':
  
