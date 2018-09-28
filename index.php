@@ -96,6 +96,40 @@ if (!is_null($events['events'])) {
                         }
                     }
                 }
+            }else{
+                        switch ($typeMessage){
+                            case (preg_match('/[image|audio|video]/',$typeMessage) ? true : false) :
+                            $response = $bot->getMessageContent($idMessage);
+                            if ($response->isSucceeded()) {
+                                $dataBinary = $response->getRawBody();
+                                $fileType = $response->getHeader('Content-Type');
+                                switch ($fileType){
+                                    case (preg_match('/^image/',$fileType) ? true : false):
+                                    list($typeFile,$ext) = explode("/",$fileType);
+                                    $ext = ($ext=='jpeg' || $ext=='jpg')?"jpg":$ext;
+                                    $fileNameSave = time().".".$ext;
+                                    break;
+                                    case (preg_match('/^audio/',$fileType) ? true : false):
+                                    list($typeFile,$ext) = explode("/",$fileType);
+                                    $fileNameSave = time().".".$ext;                        
+                                    break;
+                                case (preg_match('/^video/',$fileType) ? true : false):
+                                    list($typeFile,$ext) = explode("/",$fileType);
+                                    $fileNameSave = time().".".$ext;                                
+                                    break;  
+                                }
+                                $botDataFolder = 'C:\Users\chake\Desktop\autobot'; // โฟลเดอร์หลักที่จะบันทึกไฟล์
+                                $botDataUserFolder = $botDataFolder.$userID; // มีโฟลเดอร์ด้านในเป็น userId อีกขั้น
+                                if(!file_exists($botDataUserFolder)) { // ตรวจสอบถ้ายังไม่มีให้สร้างโฟลเดอร์ userId
+                                    mkdir($botDataUserFolder, 0777, true);
+                                }
+                                $fileFullSavePath = $botDataUserFolder.'/'.$fileNameSave;
+                                file_put_contents($fileFullSavePath,$dataBinary); // ทำการบันทึกไฟล์
+                                $textReplyMessage = "บันทึกไฟล์เรียบร้อยแล้ว $fileNameSave";
+                                $replyData = new TextMessageBuilder($textReplyMessage);
+                                break;
+                            }
+                         }
             }
 
                 $httpClient = new CurlHTTPClient($channel_token);
