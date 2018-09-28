@@ -16,87 +16,87 @@ $events = json_decode($content, true);
 if (!is_null($events['events'])) {
 
 
-	foreach ($events['events'] as $event) {
+	// foreach ($events['events'] as $event) {
     
   
-		if ($event['type'] == 'message' ) {
+	// 	if ($event['type'] == 'message' ) {
 
  
-            $replyToken = $event['replyToken'];
+    //         $replyToken = $event['replyToken'];
 
-            try {
+    //         try {
 
-                $host = 'ec2-23-23-242-163.compute-1.amazonaws.com';
-                $dbname = 'dfitqn78lbn0av';
-                $user = 'gwuaimhybkhmyz';
-                $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
-                $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
+    //             $host = 'ec2-23-23-242-163.compute-1.amazonaws.com';
+    //             $dbname = 'dfitqn78lbn0av';
+    //             $user = 'gwuaimhybkhmyz';
+    //             $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
+    //             $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
 
-                if($event['message']['type']=='text'){
-                   $text = $event['message']['text'];
+    //             if($event['message']['type']=='text'){
+    //                $text = $event['message']['text'];
                    
-                   $appointments = explode('==', $event['message']['text']);
+    //                $appointments = explode('==', $event['message']['text']);
 
-                if(count($appointments) == 2) {
-                    $key = $appointments[0];
+    //             if(count($appointments) == 2) {
+    //                 $key = $appointments[0];
 
-                   $params = array(
-                    'key' => $appointments[0],
-                    'result' => $appointments[1],
-                    'time' => date("Y-m-d h:i:sa")
-                   );
+    //                $params = array(
+    //                 'key' => $appointments[0],
+    //                 'result' => $appointments[1],
+    //                 'time' => date("Y-m-d h:i:sa")
+    //                );
 
-                            $checkkey = $connection->query("SELECT * FROM test WHERE key='$key' LIMIT 1")->fetchAll();
-                            if($checkkey){
-                                foreach ($checkkey as $row) {
-                                    $id = $row['id'];
+    //                         $checkkey = $connection->query("SELECT * FROM test WHERE key='$key' LIMIT 1")->fetchAll();
+    //                         if($checkkey){
+    //                             foreach ($checkkey as $row) {
+    //                                 $id = $row['id'];
                                     
-                                }
+    //                             }
 
-                                $sqlupdate= $connection->prepare("UPDATE test SET key=:key, result=:result, time=:time WHERE id='$id' ");
-                                $result = $sqlupdate->execute($params);
+    //                             $sqlupdate= $connection->prepare("UPDATE test SET key=:key, result=:result, time=:time WHERE id='$id' ");
+    //                             $result = $sqlupdate->execute($params);
                                 
-                                if($result){
-                                    $respMessage = 'อัพเดทแล้ว';
-                                }else{
-                                    $respMessage = 'อัพเดทข้อผิดพลาด';
-                                }
+    //                             if($result){
+    //                                 $respMessage = 'อัพเดทแล้ว';
+    //                             }else{
+    //                                 $respMessage = 'อัพเดทข้อผิดพลาด';
+    //                             }
                                 
-                            }else{
+    //                         }else{
                                     
-                                $data = $connection->prepare("INSERT INTO test (key,result,time) VALUES (:key,:result,:time)");
-                                $result = $data->execute($params);
+    //                             $data = $connection->prepare("INSERT INTO test (key,result,time) VALUES (:key,:result,:time)");
+    //                             $result = $data->execute($params);
                                 
-                                if($result){
-                                    $respMessage = 'บันทึกแล้ว';
-                                }else{
-                                    $respMessage = 'บันทึกข้อผิดพลาด';
-                                }
-                            }
+    //                             if($result){
+    //                                 $respMessage = 'บันทึกแล้ว';
+    //                             }else{
+    //                                 $respMessage = 'บันทึกข้อผิดพลาด';
+    //                             }
+    //                         }
                  
-                   }else{
+    //                }else{
 
-                    $data = $connection->query("SELECT result FROM test WHERE key='$text' LIMIT 1")->fetchAll();
+    //                 $data = $connection->query("SELECT result FROM test WHERE key='$text' LIMIT 1")->fetchAll();
                    
-                    if($data){
-                        foreach ($data as $row) {
-                        $respMessage = $row['result'];
-                        }
+    //                 if($data){
+    //                     foreach ($data as $row) {
+    //                     $respMessage = $row['result'];
+    //                     }
 
-                    }else{
+    //                 }else{
             
-                        $data = $connection->query("SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1")->fetchAll();
-                        if($data){
-                            foreach ($data as $row) {
-                            $respMessage = $row['result'];
-                            }
-                        }else{
-                            $respMessage = "ฉันไม่รู้จัก$text สอนฉันหน่อย โดยการ == ระหว่างคำถามและคำตอบ  
-                            เช่น ดี==ดีจ้า ";
-                        }
-                    }
-                }
-            }else{
+    //                     $data = $connection->query("SELECT result FROM test WHERE key LIKE '%$text%' LIMIT 1")->fetchAll();
+    //                     if($data){
+    //                         foreach ($data as $row) {
+    //                         $respMessage = $row['result'];
+    //                         }
+    //                     }else{
+    //                         $respMessage = "ฉันไม่รู้จัก$text สอนฉันหน่อย โดยการ == ระหว่างคำถามและคำตอบ  
+    //                         เช่น ดี==ดีจ้า ";
+    //                     }
+    //                 }
+    //             }
+    //         }else{
                         switch ($typeMessage){
                             case (preg_match('/[image|audio|video]/',$typeMessage) ? true : false) :
                             $response = $bot->getMessageContent($idMessage);
