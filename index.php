@@ -95,16 +95,17 @@ if (!is_null($events['events'])) {
                         }
                     }
                 }
-            }else{
-                if($event['message']['type']!='text'){
-                    $respMessage = $event['replyToken'];
-                    $packageId = 1;
-                    $stickerId = 410;
-                    $respMessage = $event['replyToken'];
-                    $textMessageBuilder = new StickerMessageBuilder($packageId, $stickerId);
-                }
+            }else
+            // {
+            //     if($event['message']['type']!='text'){
+            //         $respMessage = $event['replyToken'];
+            //         $packageId = 1;
+            //         $stickerId = 410;
+            //         $respMessage = $event['replyToken'];
+            //         $textMessageBuilder = new StickerMessageBuilder($packageId, $stickerId);
+            //     }
 
-            }
+            // }
                 $httpClient = new CurlHTTPClient($channel_token);
                 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
     
