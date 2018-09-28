@@ -95,11 +95,19 @@ if (!is_null($events['events'])) {
                         }
                     }
                 }
+            }else{
+                if($event['message']['type']!='text'){
+                    $respMessage = $event['replyToken'];
+                    $packageId = 1;
+                    $stickerId = 410;
+                }
+
             }
                 $httpClient = new CurlHTTPClient($channel_token);
                 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
     
                 $textMessageBuilder = new TextMessageBuilder($respMessage);
+                $textMessageBuilder = new StickerMessageBuilder($packageId, $stickerId);
                 $response = $bot->replyMessage($replyToken, $textMessageBuilder);
 
             
