@@ -91,7 +91,7 @@ if (!is_null($events['events'])) {
                             $respMessage = $row['result'];
                             }
                         }else{
-                            $respMessage = "ไม่พบข้อมูล";
+                            $respMessage = "สอนเราน่อยโดยการ==ระหว่างคำถามแหละคำตอบ เช่น ดี==ดีจ้า";
                         }
                     }
                 }
