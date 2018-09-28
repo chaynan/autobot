@@ -24,7 +24,7 @@ if (!is_null($events['events'])) {
  
     //         $replyToken = $event['replyToken'];
 
-    //         try {
+            try {
 
     //             $host = 'ec2-23-23-242-163.compute-1.amazonaws.com';
     //             $dbname = 'dfitqn78lbn0av';
@@ -130,7 +130,7 @@ if (!is_null($events['events'])) {
                                 break;
                             }
                          }
-            }
+            // }
 
                 $httpClient = new CurlHTTPClient($channel_token);
                 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
@@ -145,8 +145,8 @@ if (!is_null($events['events'])) {
             }
 
 		}
-	}
-}
+	// }
+// }
 
 echo "OK";
 ?>
