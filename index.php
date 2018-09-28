@@ -95,7 +95,8 @@ if (!is_null($events['events'])) {
                         }
                     }
                 }
-            }else
+            }
+            // else
             // {
             //     if($event['message']['type']!='text'){
             //         $respMessage = $event['replyToken'];
