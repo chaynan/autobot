@@ -100,6 +100,8 @@ if (!is_null($events['events'])) {
                     $respMessage = $event['replyToken'];
                     $packageId = 1;
                     $stickerId = 410;
+                    $respMessage = $event['replyToken'];
+                    $textMessageBuilder = new StickerMessageBuilder($packageId, $stickerId);
                 }
 
             }
@@ -107,7 +109,7 @@ if (!is_null($events['events'])) {
                 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
     
                 $textMessageBuilder = new TextMessageBuilder($respMessage);
-                $textMessageBuilder = new StickerMessageBuilder($packageId, $stickerId);
+                
                 $response = $bot->replyMessage($replyToken, $textMessageBuilder);
 
             
