@@ -91,23 +91,13 @@ if (!is_null($events['events'])) {
                             $respMessage = $row['result'];
                             }
                         }else{
-                            $respMessage = "ฉันไม่รู้จัก$text สอนฉันหน่อยโดยการ == ระหว่างคำถามและคำตอบ  <br/> 
-                            เช่น ดี==ดีจ้า หรือ ทำอะไร,ทำไร,ทำไรอยู่==นั่งคุยกับคุณไง";
+                            $respMessage = "ฉันไม่รู้จัก$text สอนฉันหน่อย โดยการ == ระหว่างคำถามและคำตอบ  
+                            เช่น ดี==ดีจ้า ";
                         }
                     }
                 }
             }
-            // else
-            // {
-            //     if($event['message']['type']!='text'){
-            //         $respMessage = $event['replyToken'];
-            //         $packageId = 1;
-            //         $stickerId = 410;
-            //         $respMessage = $event['replyToken'];
-            //         $textMessageBuilder = new StickerMessageBuilder($packageId, $stickerId);
-            //     }
 
-            // }
                 $httpClient = new CurlHTTPClient($channel_token);
                 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
     
