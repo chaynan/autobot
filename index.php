@@ -45,7 +45,7 @@ if (!is_null($events['events'])) {
 //     $respMessage = 'อัพเดทข้อผิดพลาด1';
 // }
                 if($event['message']['type']=='text'){
-                $respMessage = $event['source']['userId'] ;
+                    // $respMessage = $event['source']['userId'] ;
                    $text = $event['message']['text'];
                    
                    $appointments = explode('==', $event['message']['text']);
@@ -104,7 +104,7 @@ if (!is_null($events['events'])) {
                             $respMessage = $row['result'];
                             }
                         }else{
-                            $respMessage = "ไม่ทราบ";
+                            $respMessage = $event['source']['userId'] ;
                         }
                     }
                 }
