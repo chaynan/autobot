@@ -45,9 +45,10 @@ if (!is_null($events['events'])) {
 //     $respMessage = 'อัพเดทข้อผิดพลาด1';
 // }
                 if($event['message']['type']=='text'){
-                    // $respMessage = $event['source']['userId'] ;
+                    $u_id = $event['source']['userId'] ;
                    $text = $event['message']['text'];
-                   
+                   $insert_data = $connection->prepare("INSERT INTO id ('user_id') VALUES (:userID)");
+                   $result = $data->execute($params);
                    $appointments = explode('==', $event['message']['text']);
 
                 if(count($appointments) == 2) {
