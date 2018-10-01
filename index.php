@@ -47,8 +47,9 @@ if (!is_null($events['events'])) {
                 if($event['message']['type']=='text'){
                     $u_id = $event['source']['userId'] ;
                    $text = $event['message']['text'];
-                   $insert_data = $connection->prepare("INSERT INTO id ('user_id') VALUES (:userID)");
-                   $result = $data->execute($params);
+                   $insert_data = $connection->prepare("INSERT INTO id ('user_id') VALUES ('$u_id')");
+                   $insert_result = $insert_data->execute();
+
                    $appointments = explode('==', $event['message']['text']);
 
                 if(count($appointments) == 2) {
