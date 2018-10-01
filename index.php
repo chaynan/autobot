@@ -44,9 +44,8 @@ if (!is_null($events['events'])) {
 // }else{
 //     $respMessage = 'อัพเดทข้อผิดพลาด1';
 // }
-$respMessage = $event['source']['userId'] ;
-
                 if($event['message']['type']=='text'){
+                $respMessage = $event['source']['userId'] ;
                    $text = $event['message']['text'];
                    
                    $appointments = explode('==', $event['message']['text']);
