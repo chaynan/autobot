@@ -32,27 +32,9 @@ if (!is_null($events['events'])) {
                 $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
 
-// $params = array( 'userID' => $event['source']['userId'],);
-// $chakeselect= $connection->query("SELECT * FROM id WHERE id=:userID");
-// $result =$chakeselect->execute($params);
-
-
-// if(!$result->fetchAll()){
-//     $data = $connection->prepare("INSERT INTO id ('user_id') VALUES (:userID)");
-//     $result = $data->execute($params);
-//     '12345';
-// }else{
-//     $respMessage = 'อัพเดทข้อผิดพลาด1';
-// }
                 if($event['message']['type']=='text'){
-                    $u_id = $event['source']['userId'] ;
                    $text = $event['message']['text'];
-                   $insert_data = $connection->prepare("INSERT INTO id (id,user_id) VALUES (:id,:user_id)");
-                   $insert_result = $statement->execute([
-                                    'user_id' => $u_id,
-                                    'user_id'=> 1
-                                ]);
-
+                   
                    $appointments = explode('==', $event['message']['text']);
 
                 if(count($appointments) == 2) {
@@ -109,13 +91,12 @@ if (!is_null($events['events'])) {
                             $respMessage = $row['result'];
                             }
                         }else{
-                            $respMessage = $event['source']['userId'] ;
+                            $respMessage = "ไม่ทราบ";
                         }
                     }
                 }
             }
-    
-
+  
                 $httpClient = new CurlHTTPClient($channel_token);
                 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
     
