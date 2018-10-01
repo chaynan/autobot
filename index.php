@@ -31,19 +31,20 @@ if (!is_null($events['events'])) {
                 $user = 'gwuaimhybkhmyz';
                 $pass = 'cb37b0b2797f5e53a4eb419c7fdabbd347a988bb3f5cec004ba794a2d71f8b7e';
                 $connection = new PDO("pgsql:host=$host;dbname=$dbname", $user, $pass); 
-$params = array( 'userID' => $event['source']['userId'],);
-$chakeselect= $connection->query("SELECT * FROM id WHERE id=:userID");
-$result =$chakeselect->execute($params);
+
+// $params = array( 'userID' => $event['source']['userId'],);
+// $chakeselect= $connection->query("SELECT * FROM id WHERE id=:userID");
+// $result =$chakeselect->execute($params);
 
 
-if(!$result->fetchAll()){
-    $data = $connection->prepare("INSERT INTO id ('user_id') VALUES (:userID)");
-    $result = $data->execute($params);
-    $respMessage='12345';
-}else{
-    $respMessage = 'อัพเดทข้อผิดพลาด1';
-}
-
+// if(!$result->fetchAll()){
+//     $data = $connection->prepare("INSERT INTO id ('user_id') VALUES (:userID)");
+//     $result = $data->execute($params);
+//     '12345';
+// }else{
+//     $respMessage = 'อัพเดทข้อผิดพลาด1';
+// }
+$respMessage = $event['source']['userId'] ;
 
                 if($event['message']['type']=='text'){
                    $text = $event['message']['text'];
