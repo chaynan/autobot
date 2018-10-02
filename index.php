@@ -65,7 +65,7 @@ if (!is_null($events['events'])) {
                                 
                             }else{
                                     
-                                $data = $connection->prepare("INSERT INTO test (key,result,time,user-id) VALUES (:key,:result,:time,user-id)");
+                                $data = $connection->prepare("INSERT INTO test (key,result,time) VALUES (:key,:result,:time)");
                                 $result = $data->execute($params);
                                 
                                 if($result){
