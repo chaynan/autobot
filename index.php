@@ -44,7 +44,7 @@ if (!is_null($events['events'])) {
                     'user-id' => $event['source']['userId'] ,
                     'time' => date("Y-m-d h:i:sa")
                    );
-                            $insertid = $connection->prepare('INSERT INTO id (key,result,time,user-id) VALUES (:key,:result,:time,:user-id)'); 
+                            $insertid = $connection->prepare('INSERT INTO id (user-id) VALUES (:user-id)'); 
                             $insertid->execute($params);
                    
                             $checkkey = $connection->query("SELECT * FROM test WHERE key='$key' LIMIT 1")->fetchAll();
@@ -54,7 +54,7 @@ if (!is_null($events['events'])) {
                                     
                                 }
 
-                                $sqlupdate= $connection->prepare("UPDATE test SET key=:key, result=:result, time=:time user-id=:user-id WHERE id='$id' ");
+                                $sqlupdate= $connection->prepare("UPDATE test SET key=:key, result=:result,user-id=:user-id time=:time WHERE id='$id' ");
                                 $result = $sqlupdate->execute($params);
                                 
                                 if($result){
@@ -65,7 +65,7 @@ if (!is_null($events['events'])) {
                                 
                             }else{
                                     
-                                $data = $connection->prepare("INSERT INTO test (key,result,time,user-id) VALUES (:key,:result,:time,:user-id)");
+                                $data = $connection->prepare("INSERT INTO test (key,result,time,user-id) VALUES (:key,:result,:time,user-id)");
                                 $result = $data->execute($params);
                                 
                                 if($result){
