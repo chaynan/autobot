@@ -34,18 +34,19 @@ if (!is_null($events['events'])) {
 
                 if($event['message']['type']=='text'){
                    $text = $event['message']['text'];
-                   
                    $appointments = explode('==', $event['message']['text']);
 
                 if(count($appointments) == 2) {
                     $key = $appointments[0];
-
-                   $params = array(
+                    $params = array(
                     'key' => $appointments[0],
                     'result' => $appointments[1],
+                    'user_id' => $event['source']['userId'] ,
                     'time' => date("Y-m-d h:i:sa")
                    );
-
+                            $insertid = $connection->prepare('INSERT INTO id (user_id) VALUES (:user_id)'); 
+                            $insertid->execute($params);
+                   
                             $checkkey = $connection->query("SELECT * FROM test WHERE key='$key' LIMIT 1")->fetchAll();
                             if($checkkey){
                                 foreach ($checkkey as $row) {
