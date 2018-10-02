@@ -41,11 +41,9 @@ if (!is_null($events['events'])) {
                     $params = array(
                     'key' => $appointments[0],
                     'result' => $appointments[1],
-                    'user-id' => $event['source']['userId'] ,
                     'time' => date("Y-m-d h:i:sa")
                    );
-                            $insertid = $connection->prepare('INSERT INTO id (user-id) VALUES (:user-id)'); 
-                            $insertid->execute($params);
+                          
                    
                             $checkkey = $connection->query("SELECT * FROM test WHERE key='$key' LIMIT 1")->fetchAll();
                             if($checkkey){
@@ -96,6 +94,13 @@ if (!is_null($events['events'])) {
                         }
                     }
                 }
+            }else{
+                $params = array(
+                    'user-id' => $event['source']['userId'] ,
+                    'image' => $fileName,
+                );
+                $statement = $connection->prepare('INSERT INTO imger (id , image_id) VALUES (:id, :image');
+                $statement->execute($params);
             }
   
                 $httpClient = new CurlHTTPClient($channel_token);
