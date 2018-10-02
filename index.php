@@ -34,6 +34,8 @@ if (!is_null($events['events'])) {
 
                 if($event['message']['type']=='text'){
                    $text = $event['message']['text'];
+                   $response = $bot->getMessageContent($fileID);
+                   $fileName = md5(date('Y-m-d')).'.jpg';
                    $appointments = explode('==', $event['message']['text']);
 
                 if(count($appointments) == 2) {
