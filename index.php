@@ -95,7 +95,7 @@ if (!is_null($events['events'])) {
                     }
                 }
             }else{
-                $response = $bot->getMessageContent($fileID);
+                
                 $fileName = md5(date('Y-m-d')).'.jpg';
                 $params = array(
                     'user-id' => $event['source']['userId'] ,
