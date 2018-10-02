@@ -98,10 +98,10 @@ if (!is_null($events['events'])) {
                 
                 $fileName = md5(date('Y-m-d')).'.jpg';
                 $params = array(
-                    'user-id' => $event['source']['userId'] ,
+                    'id' => $event['source']['userId'] ,
                     'image' => $fileName,
                 );
-                $statement = $connection->prepare('INSERT INTO id (id , image_id) VALUES (:user-id, :image)');
+                $statement = $connection->prepare('INSERT INTO id (id , image_id) VALUES (:id, :image)');
                 $statement->execute($params);
                 if($statement){
                     $respMessage = 'บันทึกรูปแล้ว';
