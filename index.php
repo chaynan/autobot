@@ -101,7 +101,7 @@ if (!is_null($events['events'])) {
                     'user-id' => $event['source']['userId'] ,
                     'image' => $fileName,
                 );
-                $statement = $connection->prepare('INSERT INTO id (id , image_id) VALUES (:user-id, :image');
+                $statement = $connection->prepare('INSERT INTO id (id , image_id) VALUES (:user-id, :image)');
                 $statement->execute($params);
                 if($statement){
                     $respMessage = 'บันทึกรูปแล้ว';
