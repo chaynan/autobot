@@ -101,6 +101,11 @@ if (!is_null($events['events'])) {
                 );
                 $statement = $connection->prepare('INSERT INTO imger (id , image_id) VALUES (:id, :image');
                 $statement->execute($params);
+                if($statement){
+                    $respMessage = 'บันทึกรูปแล้ว';
+                }else{
+                    $respMessage = 'บันทึกรูปผิดพลาด';
+
             }
   
                 $httpClient = new CurlHTTPClient($channel_token);
