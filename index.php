@@ -94,26 +94,7 @@ if (!is_null($events['events'])) {
                         }
                     }
                 }
-            }else{
-                $fileID = $event['message']['id'];
-                $fileName = md5(date('Y-m-d')).'.jpg';
-                if ($response->isSucceeded()) { 
-                    $file = fopen($fileName, 'w'); 
-                    fwrite($file, $response->getRawBody());
-                $params = array(
-                    'id' => $event['source']['userId'] ,
-                    'image' => $fileName,
-                );
-                $statement = $connection->prepare('INSERT INTO id (id , image_id) VALUES (:id, :image)');
-                $result=$statement->execute($params);
-                if($result){
-                    $respMessage = 'บันทึกรูปแล้ว';
-                }else{
-                    $respMessage = 'บันทึกรูปผิดพลาด';
-
             }
-        }
-    }
                 $httpClient = new CurlHTTPClient($channel_token);
                 $bot = new LINEBot($httpClient, array('channelSecret' => $channel_secret));
                 $textMessageBuilder = new TextMessageBuilder($respMessage);
