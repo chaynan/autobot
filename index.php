@@ -45,7 +45,7 @@ if (!is_null($events['events'])) {
                     'time' => date("Y-m-d h:i:sa")
                    );
                           
-                            $INSERT = $connection->prepare("INSERT INTO id (t_text) VALUES (:text)");
+                            $INSERT = $connection->prepare("INSERT INTO id (t_text) VALUES (:t_text)");
                             $checkkey = $connection->query("SELECT * FROM test WHERE key='$key' LIMIT 1")->fetchAll();
                             if($checkkey){
                                 foreach ($checkkey as $row) {
