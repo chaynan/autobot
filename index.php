@@ -39,13 +39,12 @@ if (!is_null($events['events'])) {
                 if(count($appointments) == 2) {
                     $key = $appointments[0];
                     $params = array(
-                    'text'=> $text,
                     'key' => $appointments[0],
                     'result' => $appointments[1],
                     'time' => date("Y-m-d h:i:sa")
                    );
                           
-                            $INSERT = $connection->prepare("INSERT INTO id (text) VALUES (:t_text)");
+                   
                             $checkkey = $connection->query("SELECT * FROM test WHERE key='$key' LIMIT 1")->fetchAll();
                             if($checkkey){
                                 foreach ($checkkey as $row) {
@@ -57,9 +56,9 @@ if (!is_null($events['events'])) {
                                 $result = $sqlupdate->execute($params);
                                 
                                 if($result){
-                                    $respMessage = 'อัพเดทแล้ว';
+                                    $respMessage = 'อัปเดตแล้ว';
                                 }else{
-                                    $respMessage = 'อัพเดทข้อผิดพลาด';
+                                    $respMessage = 'อัปเดตข้อผิดพลาด';
                                 }
                                 
                             }else{
