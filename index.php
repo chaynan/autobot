@@ -39,12 +39,13 @@ if (!is_null($events['events'])) {
                 if(count($appointments) == 2) {
                     $key = $appointments[0];
                     $params = array(
+                    'text'=> $text,
                     'key' => $appointments[0],
                     'result' => $appointments[1],
                     'time' => date("Y-m-d h:i:sa")
                    );
                           
-                   
+                            $INSERT = $connection->prepare("INSERT INTO id (t_text) VALUES (:text)");
                             $checkkey = $connection->query("SELECT * FROM test WHERE key='$key' LIMIT 1")->fetchAll();
                             if($checkkey){
                                 foreach ($checkkey as $row) {
@@ -107,7 +108,7 @@ if (!is_null($events['events'])) {
 
 		}
 	}
-}
+}     
 
 echo "OK";
 ?>
