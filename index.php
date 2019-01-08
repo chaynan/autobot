@@ -90,7 +90,7 @@ if (!is_null($events['events'])) {
                             $respMessage = $row['result'];
                             }
                         }else{
-                            $respMessage = "ไม่ทราบ";
+                            $respMessage = "ไม่ทราบ01";
                         }
                     }
                 }
